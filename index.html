@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Hidup – Digital ZYY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        utama: '#2563eb',
+                        sekunder: '#7c3aed',
+                        aksen: '#10b981',
+                        gelap: '#020617',
+                        'gelap-2': '#111827',
+                        terang: '#f8fafc',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { transform-style: preserve-3d; margin:0; padding:0; box-sizing:border-box; }
+        body { perspective: 1500px; overflow-x: hidden; background: #020617; }
+
+        /* Latar Garis Cahaya Berjalan */
+        .latar-garis {
+            position: fixed; inset:0; overflow:hidden; pointer-events:none;
+        }
+        .garis-cahaya {
+            position:absolute; width:1px; height:100%; left:calc(var(--pos) * 1%);
+            background:linear-gradient(to bottom, transparent, rgba(59,130,246,0.5), transparent);
+            animation: gerakGaris 8s linear infinite;
+            animation-delay: calc(var(--pos) * 0.1s);
+        }
+        @keyframes gerakGaris {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Partikel Berjalan */
+        .partikel {
+            position:absolute; border-radius:50%; background:rgba(124,58,237,0.4);
+            animation: gerakPartikel 20s infinite ease-in-out;
+        }
+        @keyframes gerakPartikel {
+            0% { transform: translate(0,0) scale(1); opacity:0; }
+            25% { transform: translate(50px,-80px) scale(1.2); opacity:0.7; }
+            50% { transform: translate(-30px,-150px) scale(0.8); opacity:0.5; }
+            75% { transform: translate(70px,-220px) scale(1.1); opacity:0.8; }
+            100% { transform: translate(0,-300px) scale(1); opacity:0; }
+        }
+
+        /* Teks Berjalan & Berubah Warna */
+        .teks-dinamis {
+            background: linear-gradient(90deg, #2563eb, #7c3aed, #10b981, #f59e0b, #2563eb);
+            background-size: 400% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
+            animation: warnaJalan 4s linear infinite;
+            text-shadow: 0 0 40px rgba(37,99,235,0.4);
+        }
+        @keyframes warnaJalan {
+            to { background-position: 400% center; }
+        }
+
+        /* Efek Bingkai Menala Berjalan */
+        .bingkai-nyala { position:relative; border:1px solid rgba(37,99,235,0.2); border-radius:16px; overflow:hidden; }
+        .bingkai-nyala::before {
+            content:''; position:absolute; width:200%; height:200%; top:-50%; left:-50%;
+            background:conic-gradient(#2563eb, #7c3aed, transparent 60deg);
+            animation: putarBingkai 3s linear infinite;
+            z-index:-1;
+        }
+        @keyframes putarBingkai { to { transform:rotate(360deg); } }
+        .bingkai-nyala::after {
+            content:''; position:absolute; inset:2px; background:#111827; border-radius:14px; z-index:-1;
+        }
+
+        /* Kartu 3D Bergerak */
+        .kartu-hidup { transition:all 0.5s ease; transform:translateZ(10px); }
+        .kartu-hidup:hover {
+            transform:translateZ(30px) rotateX(-8deg) rotateY(8deg) scale(1.03);
+            box-shadow:0 0 30px rgba(37,99,235,0.3), 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* Gambar Melayang Terus */
+        .layang-terus { animation: layang 5s ease-in-out infinite; }
+        @keyframes layang {
+            0%,100% { transform:translateY(0) rotate(-1deg); }
+            50% { transform:translateY(-15px) rotate(1deg); }
+        }
+
+        /* Ikon Berdenyut */
+        .ikon-denyut { animation: denyut 2s ease-in-out infinite; }
+        @keyframes denyut {
+            0%,100% { transform:scale(1); filter:drop-shadow(0 0 5px rgba(37,99,235,0.5)); }
+            50% { transform:scale(1.15); filter:drop-shadow(0 0 20px rgba(124,58,237,0.7)); }
+        }
+
+        /* Muncul Berjalan */
+        .muncul-jalan { opacity:0; transform:translateY(50px) translateZ(-50px); transition:all 0.8s ease-out; }
+        .muncul-jalan.tampil { opacity:1; transform:translateY(0) translateZ(0); }
+    </style>
+</head>
+<body class="text-slate-300">
+
+    <!-- Latar Garis Cahaya -->
+    <div class="latar-garis">
+        <div class="garis-cahaya" style="--pos: 5"></div>
+        <div class="garis-cahaya" style="--pos: 15"></div>
+        <div class="garis-cahaya" style="--pos: 30"></div>
+        <div class="garis-cahaya" style="--pos: 50"></div>
+        <div class="garis-cahaya" style="--pos: 70"></div>
+        <div class="garis-cahaya" style="--pos: 85"></div>
+        <div class="garis-cahaya" style="--pos: 95"></div>
+    </div>
+
+    <!-- Partikel Bergerak -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="partikel w-3 h-3 top-20 left-10" style="animation-delay:0s"></div>
+        <div class="partikel w-2 h-2 top-60 right-20" style="animation-delay:1s"></div>
+        <div class="partikel w-4 h-4 bottom-40 left-1/3" style="animation-delay:2s"></div>
+        <div class="partikel w-2 h-2 top-1/2 right-1/4" style="animation-delay:3s"></div>
+        <div class="partikel w-3 h-3 bottom-20 right-10" style="animation-delay:4s"></div>
+        <div class="partikel w-2 h-2 top-40 left-1/2" style="animation-delay:5s"></div>
+    </div>
+
+    <!-- Akhir Latar -->
+
+    <!-- Navigasi -->
+    <nav class="fixed w-full top-0 z-50 bg-gelap/80 backdrop-blur-2xl border-b border-utama/30">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-terang flex items-center gap-2">
+                <i class="fa fa-bolt text-utama ikon-denyut"></i>
+                Digital<span class="teks-dinamis">ZYY</span>
+            </a>
+            <div class="hidden md:flex gap-6">
+                <a href="#beranda" class="hover:text-utama transition-all hover:scale-105">Beranda</a>
+                <a href="#tentang" class="hover:text-utama transition-all hover:scale-105">Tentang</a>
+                <a href="#angka" class="hover:text-utama transition-all hover:scale-105">Pencapaian</a>
+                <a href="#proyek" class="hover:text-utama transition-all hover:scale-105">Proyek</a>
+                <a href="#kontak" class="hover:text-utama transition-all hover:scale-105">Kontak</a>
+            </div>
+            <button class="md:hidden text-2xl ikon-denyut" id="tombolMenu"><i class="fa fa-bars"></i></button>
+        </div>
+        <div class="hidden md:hidden bg-gelap/95 backdrop-blur-xl border-b border-utama/30" id="menuHp">
+            <div class="container mx-auto px-4 py-3 flex flex-col gap-3">
+                <a href="#beranda" class="py-2 hover:text-utama">Beranda</a>
+                <a href="#tentang" class="py-2 hover:text-utama">Tentang</a>
+                <a href="#angka" class="py-2 hover:text-utama">Pencapaian</a>
+                <a href="#proyek" class="py-2 hover:text-utama">Proyek</a>
+                <a href="#kontak" class="py-2 hover:text-utama">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Beranda -->
+    <section id="beranda" class="min-h-screen flex items-center pt-28 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1 text-center md:text-left muncul-jalan">
+                    <h4 class="text-utama font-medium mb-3 animate-pulse">✨ Selamat Datang di Dunia Digital yang Hidup!</h4>
+                    <h1 class="text-[clamp(2.8rem,6vw,4.5rem)] font-bold text-terang mb-4">Saya Muzi Adriyan</h1>
+                    <h2 class="text-[clamp(1.4rem,3.5vw,2.2rem)] font-semibold mb-6 teks-dinamis">Pengembang Web • Desainer • Peneliti Keamanan</h2>
+                    <p class="text-slate-400 mb-8 max-w-xl text-lg">Membangun situs yang tidak hanya diam, tapi bergerak, menyala, dan memukau. Dari Bekasi untuk dunia!</p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <a href="#proyek" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-utama ke-sekunder text-white font-semibold hover:scale-105 transition-transform shadow-lg shadow-utama/30">Lihat Karya <i class="fa fa-arrow-right ml-2"></i></a>
+                        <a href="#kontak" class="px-7 py-3.5 rounded-xl border-2 border-utama text-utama font-semibold hover:bg-utama hover:text-white transition-all hover:scale-105">Hubungi Saya</a>
+                    </div>
+                </div>
+                <div class="flex-1 flex justify-center muncul-jalan layang-terus" style="animation-delay:0.2s">
+                    <div class="w-72 h-72 md:w-96 md:h-96 bingkai-nyala flex items-center justify-center">
+                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-gradient-to-br from-utama/20 ke-sekunder/20 flex items-center justify-center text-8xl ikon-denyut">
+                            <i class="fa fa-code"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Angka Berjalan -->
+    <section id="angka" class="py-18">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.6rem,3vw,2.2rem)] font-bold text-terang text-center mb-14 muncul-jalan">Pencapaian <span class="teks-dinamis">Berjalan</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="kartu-hidup bingkai-nyala p-6 text-center muncul-jalan" style="animation-delay:0.1s">
+                    <h3 class="text-4xl font-bold text-terang mb-2" data-hitung="836">0</h3>
+                    <p class="text-slate-400">Proyek Selesai</p>
+                </div>
+                <div class="kartu-hidup bingkai-nyala p-6 text-center muncul-jalan" style="animation-delay:0.2s">
+                    <h3 class="text-4xl font-bold text-terang mb-2" data-hitung="250">0</h3>
+                    <p class="text-slate-400">Keahlian Teknis</p>
+                </div>
+                <div class="kartu-hidup bingkai-nyala p-6 text-center muncul-jalan" style="animation-delay:0.3s">
+                    <h3 class="text-4xl font-bold text-terang mb-2" data-hitung="193">0</h3>
+                    <p class="text-slate-400">Apresiasi Resmi</p>
+                </div>
+                <div class="kartu-hidup bingkai-nyala p-6 text-center muncul-jalan" style="animation-delay:0.4s">
+                    <h3 class="text-4xl font-bold text-terang mb-2" data-hitung="430">0</h3>
+                    <p class="text-slate-400">Jam Belajar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang -->
+    <section id="tentang" class="py-20 bg-gelap-2/40">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.6rem,3vw,2.2rem)] font-bold text-terang text-center mb-12 muncul-jalan">Tentang <span class="teks-dinamis">Saya</span></h2>
+            <div class="max-w-4xl mx-auto kartu-hidup bingkai-nyala p-8 muncul-jalan">
+                <div class="space-y-4 text-center md:text-left">
+                    <p class="text-lg">Saya berusia 17 tahun, seorang pelajar sekaligus pengembang web yang memiliki minat besar di dunia teknologi. Saya senang mempelajari hal baru dan terus mengembangkan kemampuan di bidang pemrograman, desain web, dan teknologi digital.</p>
+                    <p class="text-lg">Saya berasal Desa Pantai Bakti, Kecamatan Muara Gembong, Kabupaten Bekasi,Jawa Barat, Indonesia, sebuah kota yang terus berkembang dan menjadi tempat saya tumbuh, belajar, serta membangun berbagai proyek digital. </p>
+                    <p class="text-lg">Saat ini saya fokus membangun website modern, mempelajari teknologi terbaru, dan menciptakan karya yang bermanfaat. Bagi saya, setiap proyek adalah kesempatan untuk belajar, berkembang, dan menghasilkan sesuatu yang dapat dibanggakan. </p>
+                    <p class="text-lg">Saya selalu terbuka terhadap tantangan baru, senang bekerja sama, dan memiliki semangat untuk terus meningkatkan kemampuan agar dapat memberikan hasil terbaik di setiap kesempatan. </p> 
+                </div>
+    </section>
+
+    <!-- Proyek -->
+    <section id="proyek" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.6rem,3vw,2.2rem)] font-bold text-terang text-center mb-14 muncul-jalan">Karya <span class="teks-dinamis">Ramai</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+                <div class="kartu-hidup bingkai-nyala overflow-hidden muncul-jalan" style="animation-delay:0.1s">
+                    <div class="h-48 bg-gradient-to-br from-utama/30 ke-sekunder/30 flex items-center justify-center text-6xl ikon-denyut"><i class="fa fa-globe"></i></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Layanan Digital ZYY</h3>
+                        <p class="text-slate-400 mb-4">Situs beranimasi penuh untuk layanan pembuatan web</p>
+                        <a href="#" class="text-utama hover:underline flex items-center gap-2">Buka <i class="fa fa-external-link"></i></a>
+                    </div>
+                </div>
+                <div class="kartu-hidup bingkai-nyala overflow-hidden muncul-jalan" style="animation-delay:0.2s">
+                    <div class="h-48 bg-gradient-to-br from-sekunder/30 ke-aksen/30 flex items-center justify-center text-6xl ikon-denyut"><i class="fa fa-book"></i></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Pusat Belajar Teknologi</h3>
+                        <p class="text-slate-400 mb-4">Panduan bergerak dan mudah dipahami pemula</p>
+                        <a href="#" class="text-sekunder hover:underline flex items-center gap-2">Buka <i class="fa fa-external-link"></i></a>
+                    </div>
+                </div>
+                <div class="kartu-hidup bingkai-nyala overflow-hidden muncul-jalan" style="animation-delay:0.3s">
+                    <div class="h-48 bg-gradient-to-br from-aksen/30 ke-utama/30 flex items-center justify-center text-6xl ikon-denyut"><i class="fa fa-shield"></i></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Keamanan Digital</h3>
+                        <p class="text-slate-400 mb-4">Pengujian dan penguatan sistem berstandar dunia</p>
+                        <a href="#" class="text-aksen hover:underline flex items-center gap-2">Buka <i class="fa fa-external-link"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak -->
+    <section id="kontak" class="py-20 bg-gelap-2/40">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.6rem,3vw,2.2rem)] font-bold text-terang text-center mb-12 muncul-jalan">Ayo <span class="teks-dinamis">Bergerak Bersama</span></h2>
+            <div class="max-w-xl mx-auto kartu-hidup bingkai-nyala p-8 muncul-jalan">
+                <div class="space-y-5">
+                    <div class="flex items-center gap-4 hover:translate-x-3 transition-transform">
+                        <div class="w-12 h-12 rounded-full bg-utama/20 flex items-center justify-center ikon-denyut"><i class="fa fa-whatsapp text-utama"></i></div>
+                        <span>0856-9217-4059</span>
+                    </div>
+                    <div class="flex items-center gap-4 hover:translate-x-3 transition-transform">
+                        <div class="w-12 h-12 rounded-full bg-sekunder/20 flex items-center justify-center ikon-denyut"><i class="fa fa-envelope text-sekunder"></i></div>
+                        <span>muziadriyan@email.com</span>
+                    </div>
+                    <div class="flex items-center gap-4 hover:translate-x-3 transition-transform">
+                        <div class="w-12 h-12 rounded-full bg-aksen/20 flex items-center justify-center ikon-denyut"><i class="fa fa-github text-aksen"></i></div>
+                        <a href="https://github.com/zii4you" target="_blank" class="hover:underline">github.com/zii4you</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kaki -->
+    <footer class="py-8 border-t border-utama/30 text-center">
+        <p class="text-slate-500">© 2026 Digital ZYY • Semua Bergerak Menuju Kemajuan 🚀</p>
+    </footer>
+
+    <!-- Script Animasi -->
+    <script>
+        // Menu HP
+        const tombolMenu = document.getElementById('tombolMenu');
+        const menuHp = document.getElementById('menuHp');
+        tombolMenu.addEventListener('click', () => menuHp.classList.toggle('hidden'));
+        menuHp.querySelectorAll('a').forEach(link => link.addEventListener('click', () => menuHp.classList.add('hidden')));
+
+        // Muncul saat digulir
+        const pengamat = new IntersectionObserver((elemen) => {
+            elemen.forEach(e => { if(e.isIntersecting) e.target.classList.add('tampil'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.muncul-jalan').forEach(el => pengamat.observe(el));
+
+        // Angka Berjalan Otomatis
+        const hitungAngka = document.querySelectorAll('[data-hitung]');
+        const mulaiHitung = (el) => {
+            const tujuan = parseInt(el.dataset.hitung);
+            const durasi = 2000;
+            const langkah = tujuan / (durasi / 16);
+            let sekarang = 0;
+            const jalan = () => {
+                sekarang += langkah;
+                if(sekarang < tujuan) {
+                    el.innerText = Math.floor(sekarang);
+                    requestAnimationFrame(jalan);
+                } else {
+                    el.innerText = tujuan + '+';
+                }
+            };
+            jalan();
+        };
+        const pengamatAngka = new IntersectionObserver((e) => {
+            e.forEach(item => { if(item.isIntersecting) mulaiHitung(item.target); });
+        }, { threshold: 0.5 });
+        hitungAngka.forEach(el => pengamatAngka.observe(el));
+    </script>
+</body>
+</html>
