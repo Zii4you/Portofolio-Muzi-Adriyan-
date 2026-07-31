@@ -23,159 +23,295 @@
         }
     </script>
     <style>
-        * { transform-style: preserve-3d; margin:0; padding:0; box-sizing:border-box; }
-        body { perspective: 1500px; overflow-x: hidden; background: #020617; }
+        * {
+            transform-style: preserve-3d;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            perspective: 1500px;
+            overflow-x: hidden;
+            background: #020617;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        section { padding: 4rem 0; }
+        @media (min-width: 768px) { section { padding: 6rem 0; } }
 
-        /* Latar Garis Cahaya Berjalan */
-        .latar-garis {
-            position: fixed; inset:0; overflow:hidden; pointer-events:none;
-        }
-        .garis-cahaya {
-            position:absolute; width:1px; height:100%; left:calc(var(--pos) * 1%);
-            background:linear-gradient(to bottom, transparent, rgba(59,130,246,0.5), transparent);
-            animation: gerakGaris 8s linear infinite;
-            animation-delay: calc(var(--pos) * 0.1s);
-        }
-        @keyframes gerakGaris {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
+        /* === SCROLL PROGRESS BAR === */
+        #scrollProgress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2563eb, #7c3aed, #10b981);
+            z-index: 9999;
+            transform-origin: left;
+            transform: scaleX(0);
         }
 
-        /* Partikel Berjalan */
+        /* === LATAR BELAKANG === */
+        .latar-aurora {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+        }
+        .aurora-1 {
+            position: absolute;
+            top: 10%;
+            left: 15%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: auroraGerak 18s infinite ease-in-out;
+        }
+        .aurora-2 {
+            position: absolute;
+            bottom: 10%;
+            right: 15%;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: auroraGerak 22s infinite ease-in-out reverse;
+        }
+        @keyframes auroraGerak {
+            0%,100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(50px,-30px) scale(1.1); }
+            66% { transform: translate(-40px,20px) scale(0.95); }
+        }
+        .grid-latar {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            opacity: 0.04;
+            background-image: radial-gradient(#2563eb 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridGerak 25s linear infinite;
+        }
+        @keyframes gridGerak { 0% { transform: translateY(0); } 100% { transform: translateY(40px); } }
         .partikel {
-            position:absolute; border-radius:50%; background:rgba(124,58,237,0.4);
-            animation: gerakPartikel 20s infinite ease-in-out;
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(124,58,237,0.3);
+            pointer-events: none;
+            z-index: -1;
         }
-        @keyframes gerakPartikel {
-            0% { transform: translate(0,0) scale(1); opacity:0; }
-            25% { transform: translate(50px,-80px) scale(1.2); opacity:0.7; }
-            50% { transform: translate(-30px,-150px) scale(0.8); opacity:0.5; }
-            75% { transform: translate(70px,-220px) scale(1.1); opacity:0.8; }
-            100% { transform: translate(0,-300px) scale(1); opacity:0; }
+        @keyframes partikelNaik {
+            0% { transform: translateY(100vh); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh); opacity:0; }
         }
 
-        /* Teks Berjalan & Berubah Warna */
+        /* === TEKS & KOMPONEN === */
         .teks-dinamis {
             background: linear-gradient(90deg, #2563eb, #7c3aed, #10b981, #f59e0b, #2563eb);
-            background-size: 400% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
+            background-size: 400% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             animation: warnaJalan 4s linear infinite;
-            text-shadow: 0 0 40px rgba(37,99,235,0.4);
         }
-        @keyframes warnaJalan {
-            to { background-position: 400% center; }
+        @keyframes warnaJalan { to { background-position: 400% center; } }
+        .bingkai-gradient {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .bingkai-gradient::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: conic-gradient(#2563eb, #7c3aed, #10b981, #2563eb);
+            animation: putarBingkai 4s linear infinite;
+            z-index: -1;
+        }
+        .bingkai-gradient::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: #111827;
+            border-radius: 14px;
+            z-index: -1;
+        }
+        @keyframes putarBingkai { to { transform: rotate(360deg); } }
+        .glass {
+            background: rgba(17,24,39,0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
-        /* Efek Bingkai Menala Berjalan */
-        .bingkai-nyala { position:relative; border:1px solid rgba(37,99,235,0.2); border-radius:16px; overflow:hidden; }
-        .bingkai-nyala::before {
-            content:''; position:absolute; width:200%; height:200%; top:-50%; left:-50%;
-            background:conic-gradient(#2563eb, #7c3aed, transparent 60deg);
-            animation: putarBingkai 3s linear infinite;
-            z-index:-1;
+        /* === ANIMASI === */
+        .muncul { opacity:0; transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .muncul.aktif { opacity:1; transform: translateY(0) translateX(0) scale(1); }
+        .muncul-dari-bawah { transform: translateY(40px); }
+        .muncul-dari-kiri { transform: translateX(-40px); }
+        .muncul-dari-kanan { transform: translateX(40px); }
+        .muncul-zoom { transform: scale(0.9); }
+        @keyframes melayang {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
         }
-        @keyframes putarBingkai { to { transform:rotate(360deg); } }
-        .bingkai-nyala::after {
-            content:''; position:absolute; inset:2px; background:#111827; border-radius:14px; z-index:-1;
-        }
+        .layang { animation: melayang 6s ease-in-out infinite; }
 
-        /* Kartu 3D Bergerak */
-        .kartu-hidup { transition:all 0.5s ease; transform:translateZ(10px); }
+        /* === HOVER === */
+        .kartu-hidup { transition: all 0.4s ease; }
         .kartu-hidup:hover {
-            transform:translateZ(30px) rotateX(-8deg) rotateY(8deg) scale(1.03);
-            box-shadow:0 0 30px rgba(37,99,235,0.3), 0 20px 40px rgba(0,0,0,0.4);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(37,99,235,0.2);
+            border-color: rgba(37,99,235,0.4);
+        }
+        .tombol-utama {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .tombol-utama::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        .tombol-utama:hover::before { transform: translateX(100%); }
+        .tombol-utama:hover { box-shadow: 0 0 25px rgba(37,99,235,0.5); transform: translateY(-2px); }
+
+        /* === NAVBAR === */
+        nav { transition: all 0.4s ease; }
+        nav.tergulir {
+            background: rgba(2,6,23,0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(37,99,235,0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        /* Gambar Melayang Terus */
-        .layang-terus { animation: layang 5s ease-in-out infinite; }
-        @keyframes layang {
-            0%,100% { transform:translateY(0) rotate(-1deg); }
-            50% { transform:translateY(-15px) rotate(1deg); }
+        /* === TOMBOL KE ATAS === */
+        #keAtas {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+        }
+        #keAtas.tampil { opacity:1; pointer-events: auto; transform: translateY(0); }
+        #keAtas:hover { transform: translateY(-3px) scale(1.1); }
+
+        /* === PEMISAH === */
+        .pemisah {
+            height: 120px;
+            position: relative;
+            margin: -60px 0;
+            z-index: 1;
+        }
+        .pemisah::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent, rgba(37,99,235,0.05), transparent);
+            clip-path: polygon(0 40%, 100% 0, 100% 60%, 0 100%);
         }
 
-        /* Ikon Berdenyut */
-        .ikon-denyut { animation: denyut 2s ease-in-out infinite; }
-        @keyframes denyut {
-            0%,100% { transform:scale(1); filter:drop-shadow(0 0 5px rgba(37,99,235,0.5)); }
-            50% { transform:scale(1.15); filter:drop-shadow(0 0 20px rgba(124,58,237,0.7)); }
+        /* === TIMELINE === */
+        .garis-waktu::before {
+            content: '';
+            position: absolute;
+            left: 1.25rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #2563eb, #7c3aed);
+            opacity: 0.3;
         }
+        @media (min-width: 768px) { .garis-waktu::before { left: 50%; transform: translateX(-50%); } }
 
-        /* Muncul Berjalan */
-        .muncul-jalan { opacity:0; transform:translateY(50px) translateZ(-50px); transition:all 0.8s ease-out; }
-        .muncul-jalan.tampil { opacity:1; transform:translateY(0) translateZ(0); }
+        /* === FAQ === */
+        .faq-jawaban {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .faq-item.terbuka .faq-jawaban { max-height: 200px; }
+        .faq-item.terbuka .tanda-panah { transform: rotate(180deg); }
     </style>
 </head>
 <body class="text-slate-300">
 
-    <!-- Latar Garis Cahaya -->
-    <div class="latar-garis">
-        <div class="garis-cahaya" style="--pos: 5"></div>
-        <div class="garis-cahaya" style="--pos: 15"></div>
-        <div class="garis-cahaya" style="--pos: 30"></div>
-        <div class="garis-cahaya" style="--pos: 50"></div>
-        <div class="garis-cahaya" style="--pos: 70"></div>
-        <div class="garis-cahaya" style="--pos: 85"></div>
-        <div class="garis-cahaya" style="--pos: 95"></div>
-    </div>
+    <div id="scrollProgress"></div>
+    <div class="latar-aurora"><div class="aurora-1"></div><div class="aurora-2"></div></div>
+    <div class="grid-latar"></div>
+    <div id="wadahPartikel" class="fixed inset-0 pointer-events-none z-[-1]"></div>
 
-    <!-- Partikel Bergerak -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="partikel w-3 h-3 top-20 left-10" style="animation-delay:0s"></div>
-        <div class="partikel w-2 h-2 top-60 right-20" style="animation-delay:1s"></div>
-        <div class="partikel w-4 h-4 bottom-40 left-1/3" style="animation-delay:2s"></div>
-        <div class="partikel w-2 h-2 top-1/2 right-1/4" style="animation-delay:3s"></div>
-        <div class="partikel w-3 h-3 bottom-20 right-10" style="animation-delay:4s"></div>
-        <div class="partikel w-2 h-2 top-40 left-1/2" style="animation-delay:5s"></div>
-    </div>
-
-    <!-- Akhir Latar -->
-
-    <!-- Navigasi -->
-    <nav class="fixed w-full top-0 z-50 bg-gelap/80 backdrop-blur-2xl border-b border-utama/30">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-terang flex items-center gap-2">
-                <i class="fa fa-bolt text-utama ikon-denyut"></i>
-                Digital<span class="teks-dinamis">ZYY</span>
+    <!-- NAVIGASI -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#beranda" class="text-xl font-bold text-terang flex items-center gap-2">
+                <i class="fa fa-bolt text-utama"></i>Digital<span class="teks-dinamis">ZYY</span>
             </a>
-            <div class="hidden md:flex gap-6">
-                <a href="#beranda" class="hover:text-utama transition-all hover:scale-105">Beranda</a>
-                <a href="#tentang" class="hover:text-utama transition-all hover:scale-105">Tentang</a>
-                <a href="#angka" class="hover:text-utama transition-all hover:scale-105">Pencapaian</a>
-                <a href="#proyek" class="hover:text-utama transition-all hover:scale-105">Proyek</a>
-                <a href="#kontak" class="hover:text-utama transition-all hover:scale-105">Kontak</a>
+            <div class="hidden md:flex gap-6 text-sm font-medium">
+                <a href="#beranda" class="hover:text-utama transition-colors">Beranda</a>
+                <a href="#tentang" class="hover:text-utama transition-colors">Tentang</a>
+                <a href="#keahlian" class="hover:text-utama transition-colors">Keahlian</a>
+                <a href="#proyek" class="hover:text-utama transition-colors">Proyek</a>
+                <a href="#sertifikat" class="hover:text-utama transition-colors">Sertifikat</a>
+                <a href="#kontak" class="hover:text-utama transition-colors">Kontak</a>
             </div>
-            <button class="md:hidden text-2xl ikon-denyut" id="tombolMenu"><i class="fa fa-bars"></i></button>
+            <button class="md:hidden text-xl" id="tombolMenu"><i class="fa fa-bars"></i></button>
         </div>
-        <div class="hidden md:hidden bg-gelap/95 backdrop-blur-xl border-b border-utama/30" id="menuHp">
-            <div class="container mx-auto px-4 py-3 flex flex-col gap-3">
+        <div id="menuHp" class="hidden md:hidden glass mt-2 mx-4 rounded-xl overflow-hidden">
+            <div class="flex flex-col p-4 gap-3">
                 <a href="#beranda" class="py-2 hover:text-utama">Beranda</a>
                 <a href="#tentang" class="py-2 hover:text-utama">Tentang</a>
-                <a href="#angka" class="py-2 hover:text-utama">Pencapaian</a>
+                <a href="#keahlian" class="py-2 hover:text-utama">Keahlian</a>
                 <a href="#proyek" class="py-2 hover:text-utama">Proyek</a>
+                <a href="#sertifikat" class="py-2 hover:text-utama">Sertifikat</a>
                 <a href="#kontak" class="py-2 hover:text-utama">Kontak</a>
             </div>
         </div>
     </nav>
 
-    <!-- Beranda -->
-    <section id="beranda" class="min-h-screen flex items-center pt-28 pb-10">
+    <!-- BERANDA -->
+    <section id="beranda" class="min-h-screen flex items-center pt-32 pb-16">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="flex-1 text-center md:text-left muncul-jalan">
-                    <h4 class="text-utama font-medium mb-3 animate-pulse">✨ Selamat Datang di Dunia Digital yang Hidup!</h4>
-                    <h1 class="text-[clamp(2.8rem,6vw,4.5rem)] font-bold text-terang mb-4">Saya Muzi Adriyan</h1>
-                    <h2 class="text-[clamp(1.4rem,3.5vw,2.2rem)] font-semibold mb-6 teks-dinamis">Pengembang Web • Desainer • Peneliti Keamanan</h2>
-                    <p class="text-slate-400 mb-8 max-w-xl text-lg">Membangun situs yang tidak hanya diam, tapi bergerak, menyala, dan memukau. Dari Bekasi untuk dunia!</p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
-                        <a href="#proyek" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-utama ke-sekunder text-white font-semibold hover:scale-105 transition-transform shadow-lg shadow-utama/30">Lihat Karya <i class="fa fa-arrow-right ml-2"></i></a>
-                        <a href="#kontak" class="px-7 py-3.5 rounded-xl border-2 border-utama text-utama font-semibold hover:bg-utama hover:text-white transition-all hover:scale-105">Hubungi Saya</a>
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex-1 text-center lg:text-left muncul muncul-dari-bawah">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass mb-6">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                        <span class="text-xs">Tersedia untuk proyek freelance</span>
+                    </div>
+                    <h1 class="text-[clamp(2.2rem,5vw,3.8rem)] font-bold text-terang mb-3">Saya <span class="teks-dinamis">Muzi Adriyan</span></h1>
+                    <div class="text-[clamp(1.2rem,3vw,1.8rem)] font-medium mb-6 h-7">
+                        <span id="ketikTeks" class="text-utama border-r-2 border-utama pr-1"></span>
+                    </div>
+                    <p class="text-slate-400 mb-8 max-w-xl mx-auto lg:mx-0">Membangun solusi digital yang aman, cepat, dan memukau. Mengubah ide menjadi karya berkelas dunia dari Bekasi.</p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3">
+                        <a href="#proyek" class="tombol-utama px-6 py-3 rounded-xl bg-gradient-to-r from-utama to-sekunder text-white font-medium">Lihat Karya</a>
+                        <a href="#kontak" class="px-6 py-3 rounded-xl border border-utama/40 text-utama hover:bg-utama/10 transition-all font-medium">Hubungi Saya</a>
                     </div>
                 </div>
-               <!-- GANTI SELURUH BAGIAN INI DI BAGIAN BERANDA -->
-                <div class="flex-1 flex justify-center muncul-jalan layang-terus" style="animation-delay:0.2s">
-                    <div class="w-72 h-72 md:w-96 md:h-96 bingkai-nyala flex items-center justify-center">
-                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden ikon-denyut">
-                            <!-- Menggunakan foto yang sudah diupload di repositori kamu -->
-                            <img src="9E7F17E2-09AB-4DCB-85EB-FBBEE7E56116.png" alt="Logo Web Development & UI/UX" class="w-full h-full object-cover">
+                <div class="flex-1 muncul muncul-zoom delay-200">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto layang">
+                        <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-r from-utama to-sekunder opacity-20 blur-xl"></div>
+                        <div class="relative h-full rounded-[1.5rem] overflow-hidden bingkai-gradient">
+                            <img src="AEBCA3EB-9450-4172-94D5-6379AD70F0B9.png" alt="Muzi Adriyan" class="w-full h-full object-cover">
                         </div>
                     </div>
                 </div>
@@ -183,141 +319,305 @@
         </div>
     </section>
 
-    <!-- Angka Berjalan -->
-    <section id="angka" class="py-18">
+    <div class="pemisah"></div>
+
+    <!-- TENTANG & KEAHLIAN -->
+    <section id="tentang" class="bg-gelap-2/30">
         <div class="container mx-auto px-4">
-            <h2 class="text-[clamp(1.6rem,3vw,2.2rem)] font-bold text-terang text-center mb-14 muncul-jalan">Pencapaian <span class="teks-dinamis">Berjalan</span></h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="kartu-hidup bingkai-nyala p-6 text-center muncul-jalan" style="animation-delay:0.1s">
-                    <h3 class="text-4xl font-bold text-terang mb-2" data-hitung="836">0</h3>
-                    <p class="text-slate-400">Proyek Selesai</p>
+            <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-terang text-center mb-10 muncul muncul-dari-bawah">Tentang <span class="teks-dinamis">Saya</span></h2>
+            <div class="max-w-3xl mx-auto glass rounded-2xl p-6 md:p-8 mb-12 muncul muncul-dari-bawah delay-100">
+                <div class="space-y-3 text-center md:text-left">
+                    <p>Saya berusia 17 tahun, pelajar sekaligus pengembang web dengan minat mendalam di dunia teknologi, desain, dan keamanan siber.</p>
+                    <p>Berasal dari Desa Pantai Bakti, Muara Gembong, Bekasi — tempat saya terus belajar, berinovasi, dan menciptakan solusi digital.</p>
+                    <p>Saya berkomitmen menghasilkan karya yang rapi, aman, dan bermanfaat. Siap berkolaborasi untuk proyek apa pun!</p>
                 </div>
-                <div class="kartu-hidup bingkai-nyala p-6 text-center muncul-jalan" style="animation-delay:0.2s">
-                    <h3 class="text-4xl font-bold text-terang mb-2" data-hitung="250">0</h3>
-                    <p class="text-slate-400">Keahlian Teknis</p>
-                </div>
-                <div class="kartu-hidup bingkai-nyala p-6 text-center muncul-jalan" style="animation-delay:0.3s">
-                    <h3 class="text-4xl font-bold text-terang mb-2" data-hitung="193">0</h3>
-                    <p class="text-slate-400">Apresiasi Resmi</p>
-                </div>
-                <div class="kartu-hidup bingkai-nyala p-6 text-center muncul-jalan" style="animation-delay:0.4s">
-                    <h3 class="text-4xl font-bold text-terang mb-2" data-hitung="430">0</h3>
-                    <p class="text-slate-400">Jam Belajar</p>
-                </div>
+            </div>
+            <h3 class="text-xl font-semibold text-terang text-center mb-6 muncul muncul-dari-bawah">Teknologi yang Dikuasai</h3>
+            <div id="keahlian" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah"><i class="fa fa-code text-2xl text-utama mb-2"></i><p class="text-sm font-medium">HTML5</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:0.1s"><i class="fa fa-css3 text-2xl text-utama mb-2"></i><p class="text-sm font-medium">CSS3</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:0.2s"><i class="fa fa-js text-2xl text-utama mb-2"></i><p class="text-sm font-medium">JavaScript</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:0.3s"><i class="fa fa-paint-brush text-2xl text-utama mb-2"></i><p class="text-sm font-medium">Tailwind CSS</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:0.4s"><i class="fa fa-server text-2xl text-utama mb-2"></i><p class="text-sm font-medium">PHP</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:0.5s"><i class="fa fa-code-fork text-2xl text-utama mb-2"></i><p class="text-sm font-medium">Laravel</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:0.6s"><i class="fa fa-git text-2xl text-utama mb-2"></i><p class="text-sm font-medium">Git</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:0.7s"><i class="fa fa-github text-2xl text-utama mb-2"></i><p class="text-sm font-medium">GitHub</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:0.8s"><i class="fa fa-pencil text-2xl text-utama mb-2"></i><p class="text-sm font-medium">Figma</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:0.9s"><i class="fa fa-paint-brush text-2xl text-utama mb-2"></i><p class="text-sm font-medium">UI/UX</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:1s"><i class="fa fa-shield text-2xl text-utama mb-2"></i><p class="text-sm font-medium">Cyber Security</p></div>
+                <div class="kartu-hidup glass rounded-xl p-4 text-center muncul muncul-dari-bawah" style="animation-delay:1.1s"><i class="fa fa-mobile text-2xl text-utama mb-2"></i><p class="text-sm font-medium">Desain Responsif</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Tentang -->
-    <section id="tentang" class="py-20 bg-gelap-2/40">
-        <div class="container mx-auto px-4">
-            <h2 class="text-[clamp(1.6rem,3vw,2.2rem)] font-bold text-terang text-center mb-12 muncul-jalan">Tentang <span class="teks-dinamis">Saya</span></h2>
-            <div class="max-w-4xl mx-auto kartu-hidup bingkai-nyala p-8 muncul-jalan">
-                <div class="space-y-4 text-center md:text-left">
-                    <p class="text-lg">Saya berusia 17 tahun, seorang pelajar sekaligus pengembang web yang memiliki minat besar di dunia teknologi. Saya senang mempelajari hal baru dan terus mengembangkan kemampuan di bidang pemrograman, desain web, dan teknologi digital.</p>
-                    <p class="text-lg">Saya berasal Desa Pantai Bakti, Kecamatan Muara Gembong, Kabupaten Bekasi,Jawa Barat, Indonesia, sebuah kota yang terus berkembang dan menjadi tempat saya tumbuh, belajar, serta membangun berbagai proyek digital. </p>
-                    <p class="text-lg">Saat ini saya fokus membangun website modern, mempelajari teknologi terbaru, dan menciptakan karya yang bermanfaat. Bagi saya, setiap proyek adalah kesempatan untuk belajar, berkembang, dan menghasilkan sesuatu yang dapat dibanggakan. </p>
-                    <p class="text-lg">Saya selalu terbuka terhadap tantangan baru, senang bekerja sama, dan memiliki semangat untuk terus meningkatkan kemampuan agar dapat memberikan hasil terbaik di setiap kesempatan. </p> 
-                </div>
-    </section>
+    <div class="pemisah"></div>
 
-    <!-- Proyek -->
-    <section id="proyek" class="py-20">
+    <!-- PERJALANAN BELAJAR -->
+    <section class="bg-gelap/50">
         <div class="container mx-auto px-4">
-            <h2 class="text-[clamp(1.6rem,3vw,2.2rem)] font-bold text-terang text-center mb-14 muncul-jalan">Karya <span class="teks-dinamis">Ramai</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
-                <div class="kartu-hidup bingkai-nyala overflow-hidden muncul-jalan" style="animation-delay:0.1s">
-                    <div class="h-48 bg-gradient-to-br from-utama/30 ke-sekunder/30 flex items-center justify-center text-6xl ikon-denyut"><i class="fa fa-globe"></i></div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Layanan Digital ZYY</h3>
-                        <p class="text-slate-400 mb-4">Situs beranimasi penuh untuk layanan pembuatan web</p>
-                        <a href="#" class="text-utama hover:underline flex items-center gap-2">Buka <i class="fa fa-external-link"></i></a>
+            <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-terang text-center mb-12 muncul muncul-dari-bawah">Perjalanan <span class="teks-dinamis">Belajar</span></h2>
+            <div class="garis-waktu relative max-w-3xl mx-auto space-y-8">
+                <div class="relative pl-10 md:pl-0 md:grid md:grid-cols-2 md:gap-8 muncul muncul-dari-kiri">
+                    <div class="absolute left-0 md:static w-6 h-6 rounded-full bg-utama border-4 border-gelap-2 -translate-x-2 md:translate-x-0"></div>
+                    <div class="glass rounded-xl p-5 md:order-2">
+                        <p class="text-xs text-utama font-medium mb-1">2024</p>
+                        <h4 class="font-semibold text-terang mb-2">Mulai Belajar Dasar Pemrograman</h4>
+                        <p class="text-sm text-slate-400">Mengenal HTML, CSS, dan struktur dasar pembuatan website</p>
                     </div>
                 </div>
-                <div class="kartu-hidup bingkai-nyala overflow-hidden muncul-jalan" style="animation-delay:0.2s">
-                    <div class="h-48 bg-gradient-to-br from-sekunder/30 ke-aksen/30 flex items-center justify-center text-6xl ikon-denyut"><i class="fa fa-book"></i></div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Pusat Belajar Teknologi</h3>
-                        <p class="text-slate-400 mb-4">Panduan bergerak dan mudah dipahami pemula</p>
-                        <a href="#" class="text-sekunder hover:underline flex items-center gap-2">Buka <i class="fa fa-external-link"></i></a>
+                <div class="relative pl-10 md:pl-0 md:grid md:grid-cols-2 md:gap-8 muncul muncul-dari-kanan" style="animation-delay:0.15s">
+                    <div class="absolute left-0 md:static w-6 h-6 rounded-full bg-utama border-4 border-gelap-2 -translate-x-2 md:translate-x-0"></div>
+                    <div class="glass rounded-xl p-5">
+                        <p class="text-xs text-utama font-medium mb-1">2024 Akhir</p>
+                        <h4 class="font-semibold text-terang mb-2">Pengembangan Tampilan & Desain</h4>
+                        <p class="text-sm text-slate-400">Menguasai Tailwind CSS dan prinsip desain UI/UX yang baik</p>
                     </div>
                 </div>
-                <div class="kartu-hidup bingkai-nyala overflow-hidden muncul-jalan" style="animation-delay:0.3s">
-                    <div class="h-48 bg-gradient-to-br from-aksen/30 ke-utama/30 flex items-center justify-center text-6xl ikon-denyut"><i class="fa fa-shield"></i></div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Keamanan Digital</h3>
-                        <p class="text-slate-400 mb-4">Pengujian dan penguatan sistem berstandar dunia</p>
-                        <a href="#" class="text-aksen hover:underline flex items-center gap-2">Buka <i class="fa fa-external-link"></i></a>
+                <div class="relative pl-10 md:pl-0 md:grid md:grid-cols-2 md:gap-8 muncul muncul-dari-kiri" style="animation-delay:0.3s">
+                    <div class="absolute left-0 md:static w-6 h-6 rounded-full bg-utama border-4 border-gelap-2 -translate-x-2 md:translate-x-0"></div>
+                    <div class="glass rounded-xl p-5 md:order-2">
+                        <p class="text-xs text-utama font-medium mb-1">2025</p>
+                        <h4 class="font-semibold text-terang mb-2">Logika & Keamanan Dasar</h4>
+                        <p class="text-sm text-slate-400">Mempelajari JavaScript, Git, serta dasar-dasar keamanan siber</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Kontak -->
-    <section id="kontak" class="py-20 bg-gelap-2/40">
-        <div class="container mx-auto px-4">
-            <h2 class="text-[clamp(1.6rem,3vw,2.2rem)] font-bold text-terang text-center mb-12 muncul-jalan">Ayo <span class="teks-dinamis">Bergerak Bersama</span></h2>
-            <div class="max-w-xl mx-auto kartu-hidup bingkai-nyala p-8 muncul-jalan">
-                <div class="space-y-5">
-                    <div class="flex items-center gap-4 hover:translate-x-3 transition-transform">
-                        <div class="w-12 h-12 rounded-full bg-utama/20 flex items-center justify-center ikon-denyut"><i class="fa fa-whatsapp text-utama"></i></div>
-                        <span>0856-9217-4059</span>
-                    </div>
-                    <div class="flex items-center gap-4 hover:translate-x-3 transition-transform">
-                        <div class="w-12 h-12 rounded-full bg-sekunder/20 flex items-center justify-center ikon-denyut"><i class="fa fa-envelope text-sekunder"></i></div>
-                        <span>muziadriyan@email.com</span>
-                    </div>
-                    <div class="flex items-center gap-4 hover:translate-x-3 transition-transform">
-                        <div class="w-12 h-12 rounded-full bg-aksen/20 flex items-center justify-center ikon-denyut"><i class="fa fa-github text-aksen"></i></div>
-                        <a href="https://github.com/zii4you" target="_blank" class="hover:underline">github.com/zii4you</a>
+                <div class="relative pl-10 md:pl-0 md:grid md:grid-cols-2 md:gap-8 muncul muncul-dari-kanan" style="animation-delay:0.45s">
+                    <div class="absolute left-0 md:static w-6 h-6 rounded-full bg-utama border-4 border-gelap-2 -translate-x-2 md:translate-x-0"></div>
+                    <div class="glass rounded-xl p-5">
+                        <p class="text-xs text-utama font-medium mb-1">2026</p>
+                        <h4 class="font-semibold text-terang mb-2">Proyek Nyata & Pengembangan Lanjut</h4>
+                        <p class="text-sm text-slate-400">Membangun situs portofolio, layanan digital, dan riset keamanan</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Kaki -->
-    <footer class="py-8 border-t border-utama/30 text-center">
-        <p class="text-slate-500">© 2026 Digital ZYY • Semua Bergerak Menuju Kemajuan 🚀</p>
+    <div class="pemisah"></div>
+
+    <!-- PROYEK -->
+    <section id="proyek">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-terang text-center mb-10 muncul muncul-dari-bawah">Karya <span class="teks-dinamis">Terbaru</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="kartu-hidup glass rounded-2xl overflow-hidden muncul muncul-zoom">
+                    <div class="h-44 bg-gradient-to-br from-utama/20 to-sekunder/20 flex items-center justify-center text-5xl text-utama/70"><i class="fa fa-code"></i></div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-terang mb-2">Layanan Digital ZYY</h3>
+                        <p class="text-sm text-slate-400 mb-4">Platform layanan pembuatan situs beranimasi penuh</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="text-xs px-2 py-1 rounded-full bg-utama/10 text-utama">HTML</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-utama/10 text-utama">CSS</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-utama/10 text-utama">JavaScript</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-utama/10 text-utama">Tailwind</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="#" class="flex-1 text-center py-2 rounded-lg bg-utama/10 text-utama text-sm hover:bg-utama/20">Live Demo</a>
+                            <a href="#" class="flex-1 text-center py-2 rounded-lg border border-slate-600 text-sm hover:border-slate-400">Kode Sumber</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="kartu-hidup glass rounded-2xl overflow-hidden muncul muncul-zoom" style="animation-delay:0.15s">
+                    <div class="h-44 bg-gradient-to-br from-sekunder/20 to-aksen/20 flex items-center justify-center text-5xl text-sekunder/70"><i class="fa fa-book"></i></div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-terang mb-2">Pusat Belajar Teknologi</h3>
+                        <p class="text-sm text-slate-400 mb-4">Panduan teknologi yang mudah dipahami pemula</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="text-xs px-2 py-1 rounded-full bg-sekunder/10 text-sekunder">HTML</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-sekunder/10 text-sekunder">Markdown</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-sekunder/10 text-sekunder">GitHub</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="#" class="flex-1 text-center py-2 rounded-lg bg-sekunder/10 text-sekunder text-sm hover:bg-sekunder/20">Live Demo</a>
+                            <a href="#" class="flex-1 text-center py-2 rounded-lg border border-slate-600 text-sm hover:border-slate-400">Kode Sumber</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="kartu-hidup glass rounded-2xl overflow-hidden muncul muncul-zoom" style="animation-delay:0.3s">
+                    <div class="h-44 bg-gradient-to-br from-aksen/20 to-utama/20 flex items-center justify-center text-5xl text-aksen/70"><i class="fa fa-shield"></i></div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-semibold text-terang mb-2">Sistem Keamanan Dasar</h3>
+                        <p class="text-sm text-slate-400 mb-4">Simulasi pengujian dan penguatan keamanan sistem</p>
+                        <div class="flex flex-wrap gap-2 mb-5">
+                            <span class="text-xs px-2 py-1 rounded-full bg-aksen/10 text-aksen">JavaScript</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-aksen/10 text-aksen">Keamanan</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-aksen/10 text-aksen">Git</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <a href="#" class="flex-1 text-center py-2 rounded-lg bg-aksen/10 text-aksen text-sm hover:bg-aksen/20">Live Demo</a>
+                            <a href="#" class="flex-1 text-center py-2 rounded-lg border border-slate-600 text-sm hover:border-slate-400">Kode Sumber</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="pemisah"></div>
+
+    <!-- SERTIFIKAT & PENCAPAIAN -->
+    <section id="sertifikat" class="bg-gelap-2/30">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-terang text-center mb-10 muncul muncul-dari-bawah">Sertifikat & <span class="teks-dinamis">Pencapaian</span></h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-12">
+                <div class="glass rounded-xl p-5 text-center muncul muncul-dari-bawah"><h3 class="text-2xl font-bold text-terang mb-1" data-hitung="836">0+</h3><p class="text-xs text-slate-400">Proyek Selesai</p></div>
+                <div class="glass rounded-xl p-5 text-center muncul muncul-dari-bawah" style="animation-delay:0.1s"><h3 class="text-2xl font-bold text-terang mb-1" data-hitung="250">0+</h3><p class="text-xs text-slate-400">Jam Pelatihan</p></div>
+                <div class="glass rounded-xl p-5 text-center muncul muncul-dari-bawah" style="animation-delay:0.2s"><h3 class="text-2xl font-bold text-terang mb-1" data-hitung="193">0+</h3><p class="text-xs text-slate-400">Apresiasi Resmi</p></div>
+                <div class="glass rounded-xl p-5 text-center muncul muncul-dari-bawah" style="animation-delay:0.3s"><h3 class="text-2xl font-bold text-terang mb-1" data-hitung="430">0+</h3><p class="text-xs text-slate-400">Jam Belajar</p></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="glass rounded-xl p-5 text-center kartu-hidup muncul muncul-zoom">
+                    <i class="fa fa-certificate text-3xl text-utama mb-3"></i>
+                    <h4 class="font-medium text-terang mb-2">Sertifikat Dasar Web Dev</h4>
+                    <p class="text-xs text-slate-400 mb-3">Pelatihan resmi bersertifikat</p>
+                    <a href="#" class="text-sm text-utama hover:underline">Lihat Detail</a>
+                </div>
+                <div class="glass rounded-xl p-5 text-center kartu-hidup muncul muncul-zoom" style="animation-delay:0.1s">
+                    <i class="fa fa-certificate text-3xl text-sekunder mb-3"></i>
+                    <h4 class="font-medium text-terang mb-2">Sertifikat UI/UX Pemula</h4>
+                    <p class="text-xs text-slate-400 mb-3">Pelatihan resmi bersertifikat</p>
+                    <a href="#" class="text-sm text-sekunder hover:underline">Lihat Detail</a>
+                </div>
+                <div class="glass rounded-xl p-5 text-center kartu-hidup muncul muncul-zoom" style="animation-delay:0.2s">
+                    <i class="fa fa-certificate text-3xl text-aksen mb-3"></i>
+                    <h4 class="font-medium text-terang mb-2">Sertifikat Keamanan Dasar</h4>
+                    <p class="text-xs text-slate-400 mb-3">Pelatihan resmi bersertifikat</p>
+                    <a href="#" class="text-sm text-aksen hover:underline">Lihat Detail</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="pemisah"></div>
+
+    <!-- FAQ -->
+    <section>
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-terang text-center mb-10 muncul muncul-dari-bawah">Pertanyaan <span class="teks-dinamis">Umum</span></h2>
+            <div class="space-y-3">
+                <div class="faq-item glass rounded-xl overflow-hidden muncul muncul-dari-bawah">
+                    <button class="w-full px-5 py-4 flex justify-between items-center text-left font-medium" onclick="this.parentElement.classList.toggle('terbuka')">
+                        <span>Layanan apa saja yang tersedia?</span>
+                        <i class="fa fa-chevron-down tanda-panah transition-transform text-sm"></i>
+                    </button>
+                    <div class="faq-jawaban px-5 pb-4 text-sm text-slate-400">Pembuatan situs web, desain UI/UX, penyesuaian tampilan, dan konsultasi dasar keamanan digital.</div>
+                </div>
+                <div class="faq-item glass rounded-xl overflow-hidden muncul muncul-dari-bawah" style="animation-delay:0.1s">
+                    <button class="w-full px-5 py-4 flex justify-between items-center text-left font-medium" onclick="this.parentElement.classList.toggle('terbuka')">
+                        <span>Berapa lama pengerjaan proyek?</span>
+                        <i class="fa fa-chevron-down tanda-panah transition-transform text-sm"></i>
+                    </button>
+                    <div class="faq-jawaban px-5 pb-4 text-sm text-slate-400">Tergantung kompleksitas proyek, mulai dari 3 hari hingga maksimal 2 minggu.</div>
+                </div>
+                <div class="faq-item glass rounded-xl overflow-hidden muncul muncul-dari-bawah" style="animation-delay:0.2s">
+                    <button class="w-full px-5 py-4 flex justify-between items-center text-left font-medium" onclick="this.parentElement.classList.toggle('terbuka')">
+                        <span>Apakah menerima revisi hasil?</span>
+                        <i class="fa fa-chevron-down tanda-panah transition-transform text-sm"></i>
+                    </button>
+                    <div class="faq-jawaban px-5 pb-4 text-sm text-slate-400">Ya, setiap proyek mencakup revisi hingga hasil sesuai harapan Anda.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="pemisah"></div>
+
+    <!-- KONTAK & FOOTER -->
+    <section id="kontak" class="bg-gelap-2/30">
+        <div class="container mx-auto px-4">
+            <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-terang text-center mb-10 muncul muncul-dari-bawah">Hubungi <span class="teks-dinamis">Saya</span></h2>
+            <div class="max-w-xl mx-auto glass rounded-2xl p-6 md:p-8 mb-12 muncul muncul-dari-bawah delay-100">
+                <div class="space-y-4">
+                    <a href="https://wa.me/6285692174059" target="_blank" class="flex items-center gap-3 p-3 rounded-xl hover:bg-utama/10 transition-colors">
+                        <i class="fa fa-whatsapp text-xl text-green-400 w-6"></i><span>0856-9217-4059</span>
+                    </a>
+                    <a href="mailto:muziadriyan@email.com" class="flex items-center gap-3 p-3 rounded-xl hover:bg-utama/10 transition-colors">
+                        <i class="fa fa-envelope text-xl text-utama w-6"></i><span>muziadriyan@email.com</span>
+                    </a>
+                    <a href="https://github.com/zii4you" target="_blank" class="flex items-center gap-3 p-3 rounded-xl hover:bg-utama/10 transition-colors">
+                        <i class="fa fa-github text-xl text-terang w-6"></i><span>github.com/zii4you</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 border-t border-utama/20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center gap-6 mb-4">
+                <a href="#" class="text-slate-400 hover:text-utama transition-colors"><i class="fa fa-whatsapp text-lg"></i></a>
+                <a href="#" class="text-slate-400 hover:text-utama transition-colors"><i class="fa fa-github text-lg"></i></a>
+                <a href="#" class="text-slate-400 hover:text-utama transition-colors"><i class="fa fa-instagram text-lg"></i></a>
+                <a href="#" class="text-slate-400 hover:text-utama transition-colors"><i class="fa fa-linkedin text-lg"></i></a>
+            </div>
+            <p class="text-sm text-slate-500">© 2026 Digital ZYY • Semua Hak Dilindungi</p>
+        </div>
     </footer>
 
-    <!-- Script Animasi -->
+    <button id="keAtas" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa fa-arrow-up"></i></button>
+
+    <!-- SCRIPT FUNGSI -->
     <script>
-        // Menu HP
+        // 1. Scroll Progress & Navbar Efek
+        const progressBar = document.getElementById('scrollProgress');
+        const navbar = document.getElementById('navbar');
+        const btnAtas = document.getElementById('keAtas');
+        window.addEventListener('scroll', () => {
+            const gulir = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            progressBar.style.transform = `scaleX(${gulir})`;
+            navbar.classList.toggle('tergulir', window.scrollY > 50);
+            btnAtas.classList.toggle('tampil', window.scrollY > 400);
+        });
+
+        // 2. Menu HP
         const tombolMenu = document.getElementById('tombolMenu');
         const menuHp = document.getElementById('menuHp');
         tombolMenu.addEventListener('click', () => menuHp.classList.toggle('hidden'));
-        menuHp.querySelectorAll('a').forEach(link => link.addEventListener('click', () => menuHp.classList.add('hidden')));
+        menuHp.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menuHp.classList.add('hidden')));
 
-        // Muncul saat digulir
-        const pengamat = new IntersectionObserver((elemen) => {
-            elemen.forEach(e => { if(e.isIntersecting) e.target.classList.add('tampil'); });
+        // 3. Muncul Saat Dilihat
+        const pengamatMuncul = new IntersectionObserver((e) => {
+            e.forEach(i => { if(i.isIntersecting) i.target.classList.add('aktif'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.muncul-jalan').forEach(el => pengamat.observe(el));
+        document.querySelectorAll('.muncul').forEach(el => pengamatMuncul.observe(el));
 
-        // Angka Berjalan Otomatis
-        const hitungAngka = document.querySelectorAll('[data-hitung]');
-        const mulaiHitung = (el) => {
+        // 4. Angka Berjalan
+        document.querySelectorAll('[data-hitung]').forEach(el => {
             const tujuan = parseInt(el.dataset.hitung);
-            const durasi = 2000;
-            const langkah = tujuan / (durasi / 16);
             let sekarang = 0;
-            const jalan = () => {
+            const langkah = tujuan / 60;
+            const hitung = () => {
                 sekarang += langkah;
-                if(sekarang < tujuan) {
-                    el.innerText = Math.floor(sekarang);
-                    requestAnimationFrame(jalan);
-                } else {
-                    el.innerText = tujuan + '+';
-                }
+                if(sekarang < tujuan) { el.innerText = Math.floor(sekarang) + '+'; requestAnimationFrame(hitung); }
+                else { el.innerText = tujuan + '+'; }
             };
-            jalan();
-        };
-        const pengamatAngka = new IntersectionObserver((e) => {
-            e.forEach(item => { if(item.isIntersecting) mulaiHitung(item.target); });
-        }, { threshold: 0.5 });
-        hitungAngka.forEach(el => pengamatAngka.observe(el));
+            new IntersectionObserver((e) => { if(e[0].isIntersecting) hitung(); }, {threshold:0.5}).observe(el);
+        });
+
+        // 5. Animasi Mengetik
+        const daftarTeks = ['Web Developer', 'UI/UX Designer', 'Cyber Security Researcher'];
+        const elemenKetik = document.getElementById('ketikTeks');
+        let iTeks = 0, iHuruf = 0, maju = true;
+        function ketik() {
+            const teks = daftarTeks[iTeks];
+            elemenKetik.textContent = maju ? teks.slice(0,++iHuruf) : teks.slice(0,--iHuruf);
+            if(!maju && iHuruf === 0) { iTeks = (iTeks+1) % daftarTeks.length; maju = true; }
+            if(maju && iHuruf === teks.length) maju = false;
+            setTimeout(ketik, maju ? 120 : 60);
+        }
+        ketik();
+
+        // 6. Partikel Otomatis
+        const wadah = document.getElementById('wadahPartikel');
+        for(let i=0; i<15; i++) {
+            const p = document.createElement('div');
+            p.classList.add('partikel');
+            p.style.left = `${Math.random()*100}%`;
+            p.style.width = p.style.height = `${2+Math.random()*4}px`;
+            p.style.animation = `partikelNaik ${15+Math.random()*20}s linear infinite`;
+            p.style.animationDelay = `${Math.random()*25}s`;
+            wadah.appendChild(p);
+        }
     </script>
 </body>
 </html>
