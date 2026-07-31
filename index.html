@@ -3,242 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZYY • Cyber Tech Portfolio</title>
+    <meta name="description" content="Portofolio Premium Muzi Adriyan - Teknologi & Pengembangan Web">
+    <title>Muzi Adriyan • Cyber Portfolio 2026</title>
+
+    <!-- === CDN UTAMA === -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/lenis@1.1.1/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/lib/vanilla-tilt.min.js"></script>
+
+    <!-- === KONFIGURASI WARNA & TAILWIND === -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        utama: '#00d4ff',
-                        sekunder: '#8b5cf6',
-                        emas: '#fbbf24',
-                        gelap: '#020617',
-                        kartu: 'rgba(15,23,42,0.6)',
+                        gelapUtama: '#050816',
+                        gelapSekunder: '#081221',
+                        gelapTertiary: '#0B132B',
+                        biruCerah: '#00E5FF',
+                        cyanMurni: '#00FFFF',
+                        unguElegan: '#6C63FF',
+                        unguTua: '#8A2BE2',
+                        emasCerah: '#FFB800',
+                        hijauSaham: '#10B981',
+                        merahSaham: '#EF4444',
+                        kacaPremium: 'rgba(255,255,255,0.08)',
+                    },
+                    fontFamily: {
+                        utama: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     animation: {
-                        'rgb-putar': 'rgbPutar 8s linear infinite',
-                        'mengambang': 'mengambang 6s ease-in-out infinite',
                         'denyut-neon': 'denyutNeon 3s ease-in-out infinite',
-                        'hujan-matriks': 'hujanMatriks 10s linear infinite',
+                        'mengambang-lembut': 'mengambangLembut 6s ease-in-out infinite',
+                        'rgb-putar-cepat': 'rgbPutarCepat 5s linear infinite',
+                        'berkedip-bintang': 'berkedipBintang 2s ease-in-out infinite',
                     },
                     keyframes: {
-                        rgbPutar: {
-                            '0%': { borderColor: '#ff0055' },
-                            '25%': { borderColor: '#00ffff' },
-                            '50%': { borderColor: '#ff00ff' },
-                            '75%': { borderColor: '#ffff00' },
-                            '100%': { borderColor: '#ff0055' },
-                        },
-                        mengambang: {
-                            '0%,100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        },
                         denyutNeon: {
-                            '0%,100%': { boxShadow: '0 0 20px 5px rgba(0,212,255,0.4)' },
-                            '50%': { boxShadow: '0 0 40px 10px rgba(139,92,246,0.6)' },
+                            '0%,100%': { boxShadow: '0 0 20px 5px rgba(0,229,255,0.3)' },
+                            '50%': { boxShadow: '0 0 40px 10px rgba(108,99,255,0.5)' },
                         },
-                        hujanMatriks: {
-                            '0%': { transform: 'translateY(-100%)' },
-                            '100%': { transform: 'translateY(100vh)' },
+                        mengambangLembut: {
+                            '0%,100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        rgbPutarCepat: {
+                            '0%': { borderColor: '#00E5FF' },
+                            '25%': { borderColor: '#6C63FF' },
+                            '50%': { borderColor: '#FFB800' },
+                            '75%': { borderColor: '#8A2BE2' },
+                            '100%': { borderColor: '#00E5FF' },
+                        },
+                        berkedipBintang: {
+                            '0%,100%': { opacity: 0.2 },
+                            '50%': { opacity: 1 },
                         }
                     }
                 }
             }
         }
     </script>
+
+    <!-- === GAYA KUSTOM === -->
     <style type="text/tailwindcss">
         @layer utilities {
-            .glass {
-                background: rgba(15,23,42,0.5);
-                backdrop-filter: blur(12px);
-                border: 1px solid rgba(255,255,255,0.1);
+            .kaca-tinggi {
+                background: rgba(255,255,255,0.06);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255,255,255,0.12);
+                border-radius: 24px;
             }
-            .neon-glow {
-                box-shadow: 0 0 15px 3px rgba(0,212,255,0.5), 0 0 30px 6px rgba(139,92,246,0.3);
-            }
-            .teks-gradasi {
-                background: linear-gradient(90deg, #00d4ff, #8b5cf6, #fbbf24, #00d4ff);
+            .teks-gradasi-unggul {
+                background: linear-gradient(90deg, #00E5FF, #6C63FF, #FFB800, #00E5FF);
                 background-size: 300% auto;
                 -webkit-background-clip: text; background-clip: text; color: transparent;
                 animation: gradasiJalan 5s linear infinite;
             }
-            .batas-rgb {
-                border: 3px solid;
-                animation: rgbPutar 8s linear infinite;
+            .batas-neon-gradasi {
+                border: 2px solid transparent;
+                background: linear-gradient(#050816, #050816) padding-box,
+                            linear-gradient(90deg, #00E5FF, #6C63FF, #FFB800) border-box;
             }
-            .sorot-mouse {
-                position: fixed;
-                width: 300px;
-                height: 300px;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(0,212,255,0.1), transparent 70%);
-                pointer-events: none;
-                z-index: 1;
-                transform: translate(-50%, -50%);
+            .bayangan-neon {
+                box-shadow: 0 0 30px rgba(0,229,255,0.2), 0 10px 40px rgba(108,99,255,0.15);
             }
+            .tombol-magnet {
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+            .tombol-magnet:hover { transform: translateY(-3px) scale(1.03); }
             @keyframes gradasiJalan { to { background-position: 300% center; } }
         }
     </style>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        html, body { background: #050816; color: #f8fafc; overflow-x: hidden; cursor: none; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #081221; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(#00E5FF, #6C63FF); border-radius: 10px; }
+
+        /* === CUSTOM CURSOR === */
+        .kursor-neon {
+            position: fixed; width: 20px; height: 20px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,229,255,0.8), transparent 70%);
+            border: 2px solid rgba(108,99,255,0.5); pointer-events: none; z-index: 9999;
+            transition: transform 0.1s ease, width 0.2s, height 0.2s, opacity 0.2s;
         }
-        body {
-            background: #020617;
-            color: #f8fafc;
-            overflow-x: hidden;
-            perspective: 1000px;
+        .kursor-neon.aktif { width: 50px; height: 50px; opacity: 0.7; }
+        .jejak-kursor {
+            position: fixed; width: 8px; height: 8px; border-radius: 50%;
+            background: #00E5FF; opacity: 0.6; pointer-events: none; z-index: 9998;
+            transition: all 0.5s ease-out;
         }
 
-        /* === BACKGROUND AURORA & PARALLAX === */
-        .latar-aurora {
-            position: fixed;
-            inset: 0;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(139,92,246,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0,212,255,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(251,191,36,0.08) 0%, transparent 60%);
-            z-index: -2;
-            transition: transform 0.1s ease-out;
-        }
+        /* === BACKGROUND ANIMASI BINTANG 3D === */
+        #latar3d { position: fixed; inset: 0; z-index: -1; }
 
-        /* === PARTIKEL TERBANG === */
-        .partikel {
-            position: fixed;
-            width: 2px; height: 2px;
-            background: rgba(0,212,255,0.6);
-            border-radius: 50%;
-            z-index: -1;
-            animation: partikelTerbang 20s linear infinite;
+        /* === LOADING SCREEN === */
+        .layar-muat {
+            position: fixed; inset: 0; background: #050816; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-        @keyframes partikelTerbang {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-        }
+        .layar-muat.selesai { opacity: 0; visibility: hidden; }
+        .lingkaran-muat { width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.1); border-top-color: #00E5FF; animation: putar 1s linear infinite; }
+        @keyframes putar { to { transform: rotate(360deg); } }
 
-        /* === FOTO PROFIL BINGKAI RGB === */
-        .bingkai-profil {
-            position: relative;
-            width: 220px; height: 220px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            animation: mengambang 7s ease-in-out infinite;
-        }
-        .bingkai-rgb {
-            position: absolute; inset: -6px;
-            border-radius: 50%;
-            background: conic-gradient(#ff0055, #00ffff, #ff00ff, #ffff00, #ff0055);
-            animation: putar360 5s linear infinite;
-            filter: blur(4px);
-        }
-        .foto-profil {
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            background: #0f172a;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 4rem;
-            z-index: 2;
-            border: 4px solid #020617;
-        }
-        @keyframes putar360 { to { transform: rotate(360deg); } }
+        /* === TYPING EFFECT === */
+        .ketik::after { content: '|'; color: #00E5FF; animation: kedip 0.8s infinite; }
+        @keyframes kedip { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* === EFEK MUNCUL SCROLL === */
-        .muncul {
-            opacity: 0; transform: translateY(60px) translateZ(-50px);
-            transition: all 1s cubic-bezier(0.16,1,0.3,1);
-        }
-        .muncul.tampil { opacity: 1; transform: translateY(0) translateZ(0); }
-
-        /* === KARTU 3D HOVER === */
-        .kartu-3d {
-            transform-style: preserve-3d;
-            transition: all 0.4s ease;
-        }
-        .kartu-3d:hover {
-            transform: rotateX(-8deg) rotateY(8deg) scale(1.05);
-        }
-
-        /* === PROGRESS BAR === */
-        .baris-skill {
-            height: 10px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .isi-skill {
-            height: 100%;
-            background: linear-gradient(90deg, #00d4ff, #8b5cf6);
-            border-radius: 10px;
-            width: 0;
-            transition: width 2s ease-out;
-        }
+        /* === RIPPLE EFFECT === */
+        .gelombang { position: absolute; border-radius: 50%; background: rgba(0,229,255,0.3); transform: scale(0); animation: riak 0.6s ease-out; pointer-events: none; }
+        @keyframes riak { to { transform: scale(4); opacity: 0; } }
     </style>
 </head>
 <body>
 
-    <!-- EFEK SOROT MOUSE -->
-    <div class="sorot-mouse" id="sorotMouse"></div>
+    <!-- === LAYAR LOADING === -->
+    <div class="layar-muat" id="layarMuat">
+        <div class="lingkaran-muat mb-4"></div>
+        <p class="text-lg text-slate-300">Menginisialisasi Portofolio...</p>
+        <div class="w-64 h-1.5 bg-slate-800 rounded-full mt-4 overflow-hidden">
+            <div class="h-full w-0 bg-gradient-to-r from-biruCerah to-unguElegan" id="barMuat"></div>
+        </div>
+    </div>
 
-    <!-- LATAR BELAKANG & PARTIKEL -->
-    <div class="latar-aurora" id="latarUtama"></div>
-    <div id="wadahPartikel"></div>
+    <!-- === CUSTOM CURSOR === -->
+    <div class="kursor-neon" id="kursorUtama"></div>
+    <div id="wadahJejak"></div>
 
-    <!-- NAVBAR -->
-    <nav class="fixed w-full top-0 z-50 glass px-4 py-3">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-xl font-bold teks-gradasi">Digital ZYY</a>
-            <div class="hidden md:flex gap-6 text-sm font-medium">
-                <a href="#home" class="hover:text-utama transition-colors">Beranda</a>
-                <a href="#tentang" class="hover:text-utama transition-colors">Tentang</a>
-                <a href="#portofolio" class="hover:text-utama transition-colors">Portofolio</a>
-                <a href="#pusat-belajar" class="hover:text-utama transition-colors">Pusat Belajar</a>
-                <a href="#keamanan" class="hover:text-utama transition-colors">Keamanan</a>
-                <a href="#github" class="hover:text-utama transition-colors">GitHub</a>
-                <a href="#kontak" class="hover:text-utama transition-colors">Kontak</a>
+    <!-- === BACKGROUND BINTANG ANIMASI HIDUP === -->
+    <canvas id="latar3d"></canvas>
+
+    <!-- === NAVBAR === -->
+    <nav class="fixed w-full top-0 z-50 py-4 transition-all duration-500" id="navUtama" data-aos="fade-down" data-aos-delay="200">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-extrabold teks-gradasi-unggul">Muzi • Tech</a>
+            <div class="hidden md:flex gap-7 text-sm font-medium">
+                <a href="#beranda" class="tautan-nav relative py-2">Beranda</a>
+                <a href="#aset" class="tautan-nav relative py-2">Aset Saya</a>
+                <a href="#tentang" class="tautan-nav relative py-2">Tentang</a>
+                <a href="#proyek" class="tautan-nav relative py-2">Proyek</a>
+                <a href="#keahlian" class="tautan-nav relative py-2">Keahlian</a>
+                <a href="#sertifikat" class="tautan-nav relative py-2">Sertifikat</a>
+                <a href="#kontak" class="tautan-nav relative py-2">Kontak</a>
             </div>
-            <button class="md:hidden text-2xl"><i class="fa fa-bars"></i></button>
+            <button class="md:hidden text-2xl text-biruCerah" id="tombolMenu"><i class="fa fa-bars"></i></button>
+            <button class="ml-4 px-3 py-1.5 rounded-full kaca-tinggi text-sm" id="tombolMusik">
+                <i class="fa fa-volume-off"></i>
+            </button>
+        </div>
+        <div class="md:hidden absolute w-full left-0 top-full max-h-0 overflow-hidden transition-all duration-300 kaca-tinggi" id="menuHp">
+            <div class="px-4 py-5 flex flex-col gap-4">
+                <a href="#beranda" class="py-2 pl-3 border-l-2 border-transparent hover:border-biruCerah">Beranda</a>
+                <a href="#aset" class="py-2 pl-3 border-l-2 border-transparent hover:border-biruCerah">Aset Saya</a>
+                <a href="#tentang" class="py-2 pl-3 border-l-2 border-transparent hover:border-biruCerah">Tentang</a>
+                <a href="#proyek" class="py-2 pl-3 border-l-2 border-transparent hover:border-biruCerah">Proyek</a>
+                <a href="#keahlian" class="py-2 pl-3 border-l-2 border-transparent hover:border-biruCerah">Keahlian</a>
+                <a href="#sertifikat" class="py-2 pl-3 border-l-2 border-transparent hover:border-biruCerah">Sertifikat</a>
+                <a href="#kontak" class="py-2 pl-3 border-l-2 border-transparent hover:border-biruCerah">Kontak</a>
+            </div>
         </div>
     </nav>
 
-    <!-- BAGIAN UTAMA / HERO -->
-    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-4">
-        <div class="container mx-auto max-w-6xl">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <!-- FOTO PROFIL -->
-                <div class="bingkai-profil muncul">
-                    <div class="bingkai-rgb"></div>
-                    <div class="foto-profil neon-glow">
-                        <i class="fa fa-user-o text-utama"></i>
+    <!-- === HERO SECTION === -->
+    <section id="beranda" class="min-h-screen flex items-center pt-28 pb-16 px-4">
+        <div class="container mx-auto max-w-7xl">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="flex justify-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="relative w-[280px] h-[280px] rounded-full flex items-center justify-center">
+                        <div class="absolute inset-[-12px] rounded-full bg-conic-gradient animate-rgb-putar-cepat blur-[8px] opacity-80"></div>
+                        <div class="absolute top-4 right-4 w-5 h-5 bg-green-500 rounded-full border-2 border-gelapUtama animate-pulse"></div>
+                        <div class="w-[92%] h-[92%] rounded-full bg-gelapSekunder border-4 border-gelapUtama flex items-center justify-center text-5xl text-biruCerah bayangan-neon">
+                            <i class="fa fa-user-circle-o"></i>
+                        </div>
                     </div>
                 </div>
-
-                <!-- TEKS PERKENALAN -->
-                <div class="text-center lg:text-left muncul" style="animation-delay:0.2s">
-                    <h1 class="text-[clamp(2.2rem,7vw,4rem)] font-extrabold mb-3">
-                        Halo, Saya <span class="teks-gradasi">Muzi Adriyan</span>
+                <div class="text-center lg:text-left flex-1" data-aos="fade-up" data-aos-delay="500">
+                    <h1 class="text-[clamp(2.5rem,8vw,4.5rem)] font-extrabold mb-4 leading-tight">
+                        Halo, Saya <span class="teks-gradasi-unggul">Muzi Adriyan</span>
                     </h1>
-                    <h2 class="text-xl md:text-2xl font-semibold text-utama mb-4">
-                        Pelajar • Technology Enthusiast • Web Developer
+                    <h2 class="text-xl md:text-2xl font-semibold mb-4">
+                        <span class="ketik" data-teks="Pelajar • Pengembang Web • Desainer UI/UX • Peneliti Keamanan Digital"></span>
                     </h2>
-                    <p class="text-slate-400 text-lg max-w-xl mb-8 leading-relaxed">
-                        Mencintai dunia teknologi, pengembangan situs web modern, keamanan digital dasar, dan terus belajar hal baru untuk berkarya di era digital.
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-2 mb-6">
+                        <span class="px-3 py-1 rounded-full text-xs kaca-tinggi text-biruCerah">HTML</span>
+                        <span class="px-3 py-1 rounded-full text-xs kaca-tinggi text-cyanMurni">CSS</span>
+                        <span class="px-3 py-1 rounded-full text-xs kaca-tinggi text-kuning-400">JavaScript</span>
+                        <span class="px-3 py-1 rounded-full text-xs kaca-tinggi text-unguElegan">Tailwind</span>
+                        <span class="px-3 py-1 rounded-full text-xs kaca-tinggi text-emerald-400">GitHub</span>
+                    </div>
+                    <p class="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
+                        Membangun pengalaman digital masa depan dengan desain futuristik, teknologi mutakhir, dan komitmen untuk terus berinovasi.
                     </p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-4">
-                        <a href="#portofolio" class="px-6 py-3 rounded-xl bg-gradient-to-r dari-utama ke-sekunder font-semibold neon-glow hover:scale-105 transition-transform">
-                            Lihat Portofolio
+                        <a href="#aset" class="tombol-magnet px-7 py-3.5 rounded-xl bg-gradient-to-r from-biruCerah to-unguElegan font-semibold bayangan-neon">
+                            Lihat Aset Saya
                         </a>
-                        <a href="https://github.com/zii4you" target="_blank" class="px-6 py-3 rounded-xl glass font-semibold hover:border-utama transition-colors">
-                            <i class="fa fa-github mr-2"></i>GitHub
-                        </a>
-                        <a href="#kontak" class="px-6 py-3 rounded-xl border-2 border-utama text-utama font-semibold hover:bg-utama hover:text-gelap transition-all">
-                            Hubungi Saya
+                        <a href="https://github.com/zii4you" target="_blank" class="tombol-magnet px-7 py-3.5 rounded-xl kaca-tinggi font-semibold batas-neon-gradasi">
+                            <i class="fa fa-github mr-2"></i>Profil GitHub
                         </a>
                     </div>
                 </div>
@@ -246,212 +236,339 @@
         </div>
     </section>
 
-    <!-- DASHBOARD ASET DIGITAL -->
-    <section class="py-20 px-4">
+    <!-- === BAGIAN ASET SAYA LENGKAP === -->
+    <section id="aset" class="py-20 px-4 bg-gelapSekunder/30">
         <div class="container mx-auto max-w-6xl">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 teks-gradasi muncul">Aset Saya</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 teks-gradasi-unggul" data-aos="fade-up">Aset Saya</h2>
+            <p class="text-center text-slate-400 mb-10" data-aos="fade-up" data-aos-delay="100">Total Kepemilikan Saham: <span class="font-bold text-emasCerah">2.150 Lot</span></p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                 
-                <div class="kartu-3d glass rounded-2xl p-6 neon-glow muncul" style="animation-delay:0.1s">
+                <!-- Aset Dompet & Bank -->
+                <div class="kartu-3d kaca-tinggi p-6 bayangan-neon animate-mengambang-lembut muncul" data-aos="fade-up" data-aos-delay="100" data-tilt>
                     <div class="flex items-center gap-4 mb-4">
-                        <span class="text-3xl text-[#009ee3]"><i class="fa fa-university"></i></span>
+                        <span class="text-3xl text-[#009EE3]"><i class="fa fa-university"></i></span>
                         <h3 class="text-xl font-semibold">SeaBank</h3>
                     </div>
                     <p class="text-slate-400 mb-2">Saldo Tersedia</p>
                     <p class="text-2xl font-bold">Rp <span data-hitung="10392240">0</span></p>
+                    <div class="mt-4 h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full w-[85%] bg-gradient-to-r from-[#009EE3] to-[#6C63FF] rounded-full"></div>
+                    </div>
                 </div>
 
-                <div class="kartu-3d glass rounded-2xl p-6 neon-glow muncul" style="animation-delay:0.2s">
+                <div class="kartu-3d kaca-tinggi p-6 bayangan-neon animate-mengambang-lembut muncul" data-aos="fade-up" data-aos-delay="200" data-tilt style="animation-delay:0.2s">
                     <div class="flex items-center gap-4 mb-4">
-                        <span class="text-3xl text-[#0060e4]"><i class="fa fa-wallet"></i></span>
+                        <span class="text-3xl text-[#0060E4]"><i class="fa fa-wallet"></i></span>
                         <h3 class="text-xl font-semibold">DANA</h3>
                     </div>
                     <p class="text-slate-400 mb-2">Saldo Tersedia</p>
                     <p class="text-2xl font-bold">Rp <span data-hitung="3425000">0</span></p>
+                    <div class="mt-4 h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full w-[65%] bg-gradient-to-r from-[#0060E4] to-[#6C63FF] rounded-full"></div>
+                    </div>
                 </div>
 
-                <div class="kartu-3d glass rounded-2xl p-6 neon-glow muncul" style="animation-delay:0.3s">
+                <div class="kartu-3d kaca-tinggi p-6 bayangan-neon animate-mengambang-lembut muncul" data-aos="fade-up" data-aos-delay="300" data-tilt style="animation-delay:0.4s">
                     <div class="flex items-center gap-4 mb-4">
-                        <span class="text-3xl text-[#f7931a]"><i class="fa fa-btc"></i></span>
+                        <span class="text-3xl text-[#F7931A]"><i class="fa fa-btc"></i></span>
                         <h3 class="text-xl font-semibold">Crypto</h3>
                     </div>
                     <p class="text-slate-400 mb-2">Total Nilai</p>
                     <p class="text-2xl font-bold">Rp <span data-hitung="1066500000">0</span></p>
+                    <div class="mt-4 h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full w-[95%] bg-gradient-to-r from-[#F7931A] to-[#FFB800] rounded-full"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Aset Saham -->
+            <h3 class="text-xl font-bold text-center mb-6 text-biruCerah" data-aos="fade-up">Portofolio Saham</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+                <div class="kartu-3d kaca-tinggi p-5 bayangan-neon animate-mengambang-lembut" data-aos="fade-up" data-aos-delay="100" data-tilt style="animation-delay:0.1s">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-lg font-bold">BBCA</h4>
+                        <span class="text-xs px-2 py-1 rounded bg-hijauSaham/20 text-hijauSaham">Naik</span>
+                    </div>
+                    <p class="text-slate-400 text-sm">Bank Central Asia</p>
+                    <div class="my-3">
+                        <p class="text-sm text-slate-400">Lot Dimiliki</p>
+                        <p class="text-xl font-bold">750 Lot</p>
+                    </div>
+                    <p class="text-sm text-slate-400">Harga: Rp 9.875</p>
+                </div>
+
+                <div class="kartu-3d kaca-tinggi p-5 bayangan-neon animate-mengambang-lembut" data-aos="fade-up" data-aos-delay="200" data-tilt style="animation-delay:0.2s">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-lg font-bold">ADRO</h4>
+                        <span class="text-xs px-2 py-1 rounded bg-hijauSaham/20 text-hijauSaham">Naik</span>
+                    </div>
+                    <p class="text-slate-400 text-sm">Adaro Energy</p>
+                    <div class="my-3">
+                        <p class="text-sm text-slate-400">Lot Dimiliki</p>
+                        <p class="text-xl font-bold">500 Lot</p>
+                    </div>
+                    <p class="text-sm text-slate-400">Harga: Rp 3.120</p>
+                </div>
+
+                <div class="kartu-3d kaca-tinggi p-5 bayangan-neon animate-mengambang-lembut" data-aos="fade-up" data-aos-delay="300" data-tilt style="animation-delay:0.3s">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-lg font-bold">UNVR</h4>
+                        <span class="text-xs px-2 py-1 rounded bg-merahSaham/20 text-merahSaham">Turun</span>
+                    </div>
+                    <p class="text-slate-400 text-sm">Unilever Indonesia</p>
+                    <div class="my-3">
+                        <p class="text-sm text-slate-400">Lot Dimiliki</p>
+                        <p class="text-xl font-bold">400 Lot</p>
+                    </div>
+                    <p class="text-sm text-slate-400">Harga: Rp 4.740</p>
+                </div>
+
+                <div class="kartu-3d kaca-tinggi p-5 bayangan-neon animate-mengambang-lembut" data-aos="fade-up" data-aos-delay="400" data-tilt style="animation-delay:0.4s">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="text-lg font-bold">ACES</h4>
+                        <span class="text-xs px-2 py-1 rounded bg-hijauSaham/20 text-hijauSaham">Naik</span>
+                    </div>
+                    <p class="text-slate-400 text-sm">Ace Hardware Indonesia</p>
+                    <div class="my-3">
+                        <p class="text-sm text-slate-400">Lot Dimiliki</p>
+                        <p class="text-xl font-bold">500 Lot</p>
+                    </div>
+                    <p class="text-sm text-slate-400">Harga: Rp 705</p>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- PUSAT BELAJAR TEKNOLOGI -->
-    <section id="pusat-belajar" class="py-20 px-4 bg-gelap/30">
+    <!-- === STATISTIK === -->
+    <section class="py-16 px-4">
         <div class="container mx-auto max-w-6xl">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 teks-gradasi muncul">Pusat Belajar Teknologi</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                
-                <div class="kartu-3d glass rounded-xl p-4 text-center hover:neon-glow transition-all muncul">
-                    <i class="fa fa-code text-3xl text-orange-400 mb-2"></i>
-                    <p class="font-medium">Dasar HTML</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="kaca-tinggi p-6 text-center bayangan-neon" data-aos="fade-up" data-aos-delay="100">
+                    <p class="text-3xl md:text-4xl font-bold teks-gradasi-unggul" data-hitung="15">0</p>
+                    <p class="text-slate-400 mt-2">Proyek Selesai</p>
                 </div>
-                <div class="kartu-3d glass rounded-xl p-4 text-center hover:neon-glow transition-all muncul" style="animation-delay:0.1s">
-                    <i class="fa fa-paint-brush text-3xl text-biru-400 mb-2"></i>
-                    <p class="font-medium">Dasar CSS</p>
+                <div class="kaca-tinggi p-6 text-center bayangan-neon" data-aos="fade-up" data-aos-delay="200">
+                    <p class="text-3xl md:text-4xl font-bold teks-gradasi-unggul" data-hitung="3000">0</p>
+                    <p class="text-slate-400 mt-2">Jam Belajar</p>
                 </div>
-                <div class="kartu-3d glass rounded-xl p-4 text-center hover:neon-glow transition-all muncul" style="animation-delay:0.2s">
-                    <i class="fa fa-js text-3xl text-kuning-400 mb-2"></i>
-                    <p class="font-medium">JavaScript</p>
+                <div class="kaca-tinggi p-6 text-center bayangan-neon" data-aos="fade-up" data-aos-delay="300">
+                    <p class="text-3xl md:text-4xl font-bold teks-gradasi-unggul" data-hitung="20">0</p>
+                    <p class="text-slate-400 mt-2">Teknologi Dikuasai</p>
                 </div>
-                <div class="kartu-3d glass rounded-xl p-4 text-center hover:neon-glow transition-all muncul" style="animation-delay:0.3s">
-                    <i class="fa fa-wind text-3xl text-cyan-400 mb-2"></i>
-                    <p class="font-medium">Tailwind CSS</p>
+                <div class="kaca-tinggi p-6 text-center bayangan-neon" data-aos="fade-up" data-aos-delay="400">
+                    <p class="text-3xl md:text-4xl font-bold teks-gradasi-unggul" data-hitung="500">0</p>
+                    <p class="text-slate-400 mt-2">Kontribusi GitHub</p>
                 </div>
-                <div class="kartu-3d glass rounded-xl p-4 text-center hover:neon-glow transition-all muncul" style="animation-delay:0.4s">
-                    <i class="fa fa-git text-3xl text-orange-500 mb-2"></i>
-                    <p class="font-medium">Git & GitHub</p>
-                </div>
-                <div class="kartu-3d glass rounded-xl p-4 text-center hover:neon-glow transition-all muncul" style="animation-delay:0.5s">
-                    <i class="fa fa-pencil-square-o text-3xl text-sekunder mb-2"></i>
-                    <p class="font-medium">UI/UX Design</p>
-                </div>
-                <div class="kartu-3d glass rounded-xl p-4 text-center hover:neon-glow transition-all muncul" style="animation-delay:0.6s">
-                    <i class="fa fa-mobile text-3xl text-hijau-400 mb-2"></i>
-                    <p class="font-medium">Responsive Web</p>
-                </div>
-                <div class="kartu-3d glass rounded-xl p-4 text-center hover:neon-glow transition-all muncul" style="animation-delay:0.7s">
-                    <i class="fa fa-shield text-3xl text-merah-400 mb-2"></i>
-                    <p class="font-medium">Keamanan Dasar</p>
-                </div>
-
-            </div>
-            <div class="mt-8 text-center">
-                <a href="https://github.com/zii4you/Akses-digital-by-zyy" target="_blank" class="px-6 py-3 rounded-xl border border-utama text-utama hover:bg-utama hover:text-gelap transition-all">
-                    Buka Semua Materi di Repositori <i class="fa fa-external-link ml-2"></i>
-                </a>
             </div>
         </div>
     </section>
 
-    <!-- KEAAMANAN DIGITAL -->
-    <section id="keamanan" class="py-20 px-4">
-        <div class="container mx-auto max-w-6xl">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 teks-gradasi muncul">Keamanan Digital Dasar</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <div class="glass rounded-xl p-5 kartu-3d muncul">
-                    <h3 class="font-semibold text-lg mb-2 text-utama"><i class="fa fa-lock mr-2"></i>Kata Sandi Kuat</h3>
-                    <p class="text-slate-400 text-sm">Gunakan kombinasi huruf besar, kecil, angka, dan simbol minimal 12 karakter.</p>
-                </div>
-                <div class="glass rounded-xl p-5 kartu-3d muncul" style="animation-delay:0.1s">
-                    <h3 class="font-semibold text-lg mb-2 text-utama"><i class="fa fa-shield mr-2"></i>Aktifkan 2FA</h3>
-                    <p class="text-slate-400 text-sm">Tambah lapisan pelindung kedua agar akun tetap aman meski sandi diketahui.</p>
-                </div>
-                <div class="glass rounded-xl p-5 kartu-3d muncul" style="animation-delay:0.2s">
-                    <h3 class="font-semibold text-lg mb-2 text-utama"><i class="fa fa-exclamation-triangle mr-2"></i>Waspada Phishing</h3>
-                    <p class="text-slate-400 text-sm">Jangan klik link mencurigakan atau bagikan data pribadi lewat pesan tidak dikenal.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- KEAHLIAN / SKILL -->
-    <section class="py-20 px-4 bg-gelap/30">
+    <!-- === KEAHLIAN === -->
+    <section id="keahlian" class="py-20 px-4">
         <div class="container mx-auto max-w-4xl">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 teks-gradasi muncul">Keahlian Teknis</h2>
-            <div class="space-y-6">
-                
-                <div class="muncul">
-                    <div class="flex justify-between mb-2">
-                        <span class="font-medium">HTML & CSS</span>
-                        <span class="text-utama">90%</span>
-                    </div>
-                    <div class="baris-skill"><div class="isi-skill" data-persen="90"></div></div>
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 teks-gradasi-unggul" data-aos="fade-up">Keahlian Teknis</h2>
+            <div class="space-y-7">
+                <div data-aos="fade-right" data-aos-delay="100">
+                    <div class="flex justify-between mb-2"><span class="font-medium">HTML & Semantic Web</span><span class="text-biruCerah">95%</span></div>
+                    <div class="h-2.5 w-full bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-biruCerah to-unguElegan rounded-full" data-persen="95"></div></div>
                 </div>
-                <div class="muncul" style="animation-delay:0.1s">
-                    <div class="flex justify-between mb-2">
-                        <span class="font-medium">JavaScript Dasar</span>
-                        <span class="text-utama">75%</span>
-                    </div>
-                    <div class="baris-skill"><div class="isi-skill" data-persen="75"></div></div>
+                <div data-aos="fade-right" data-aos-delay="200">
+                    <div class="flex justify-between mb-2"><span class="font-medium">CSS & Tailwind CSS</span><span class="text-biruCerah">92%</span></div>
+                    <div class="h-2.5 w-full bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-biruCerah to-unguElegan rounded-full" data-persen="92"></div></div>
                 </div>
-                <div class="muncul" style="animation-delay:0.2s">
-                    <div class="flex justify-between mb-2">
-                        <span class="font-medium">GitHub & Git</span>
-                        <span class="text-utama">80%</span>
-                    </div>
-                    <div class="baris-skill"><div class="isi-skill" data-persen="80"></div></div>
+                <div data-aos="fade-right" data-aos-delay="300">
+                    <div class="flex justify-between mb-2"><span class="font-medium">JavaScript Dasar & Menengah</span><span class="text-biruCerah">88%</span></div>
+                    <div class="h-2.5 w-full bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-biruCerah to-unguElegan rounded-full" data-persen="88"></div></div>
                 </div>
-
+                <div data-aos="fade-right" data-aos-delay="400">
+                    <div class="flex justify-between mb-2"><span class="font-medium">Desain UI/UX Responsif</span><span class="text-biruCerah">85%</span></div>
+                    <div class="h-2.5 w-full bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-biruCerah to-unguElegan rounded-full" data-persen="85"></div></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="py-10 px-4 border-t border-slate-800">
+    <!-- === TIMELINE === -->
+    <section class="py-20 px-4">
+        <div class="container mx-auto max-w-3xl">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 teks-gradasi-unggul" data-aos="fade-up">Perjalanan Saya</h2>
+            <div class="relative border-l-2 border-biruCerah/30 ml-4 md:ml-0">
+                <div class="mb-12 ml-6" data-aos="fade-right">
+                    <span class="absolute left-[-9px] w-4 h-4 rounded-full bg-biruCerah animate-pulse"></span>
+                    <h3 class="text-xl font-bold text-biruCerah">2024</h3>
+                    <p class="text-slate-300 mt-2">Mulai mempelajari dasar HTML, struktur halaman web, dan cara kerja internet.</p>
+                </div>
+                <div class="mb-12 ml-6" data-aos="fade-right" data-aos-delay="200">
+                    <span class="absolute left-[-9px] w-4 h-4 rounded-full bg-unguElegan animate-pulse"></span>
+                    <h3 class="text-xl font-bold text-unguElegan">2025</h3>
+                    <p class="text-slate-300 mt-2">Menguasai CSS, JavaScript dasar, serta kolaborasi dan manajemen kode dengan Git & GitHub.</p>
+                </div>
+                <div class="ml-6" data-aos="fade-right" data-aos-delay="400">
+                    <span class="absolute left-[-9px] w-4 h-4 rounded-full bg-emasCerah animate-pulse"></span>
+                    <h3 class="text-xl font-bold text-emasCerah">2026</h3>
+                    <p class="text-slate-300 mt-2">Membangun situs premium, portofolio lengkap, dan mendalami keamanan digital dasar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- === FOOTER & KONTAK === -->
+    <footer id="kontak" class="py-16 px-4 border-t border-slate-800/50">
         <div class="container mx-auto max-w-6xl text-center">
-            <div class="flex justify-center gap-6 text-2xl mb-6">
-                <a href="https://github.com/zii4you" target="_blank" class="hover:text-utama transition-colors"><i class="fa fa-github"></i></a>
-                <a href="#" class="hover:text-utama transition-colors"><i class="fa fa-envelope"></i></a>
-                <a href="#" class="hover:text-utama transition-colors"><i class="fa fa-instagram"></i></a>
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 teks-gradasi-unggul" data-aos="fade-up">Terhubung Bersama Saya</h2>
+            <div class="flex justify-center gap-6 text-2xl mb-8">
+                <a href="https://github.com/zii4you" target="_blank" class="p-3 rounded-full kaca-tinggi hover:text-biruCerah hover:bayangan-neon transition-all" data-aos="zoom-in" data-aos-delay="100"><i class="fa fa-github"></i></a>
+                <a href="#" class="p-3 rounded-full kaca-tinggi hover:text-pink-500 hover:bayangan-neon transition-all" data-aos="zoom-in" data-aos-delay="200"><i class="fa fa-instagram"></i></a>
+                <a href="#" class="p-3 rounded-full kaca-tinggi hover:text-blue-500 hover:bayangan-neon transition-all" data-aos="zoom-in" data-aos-delay="300"><i class="fa fa-linkedin"></i></a>
+                <a href="#" class="p-3 rounded-full kaca-tinggi hover:text-telegram-blue hover:bayangan-neon transition-all" data-aos="zoom-in" data-aos-delay="400"><i class="fa fa-telegram"></i></a>
+                <a href="#" class="p-3 rounded-full kaca-tinggi hover:text-green-500 hover:bayangan-neon transition-all" data-aos="zoom-in" data-aos-delay="500"><i class="fa fa-whatsapp"></i></a>
             </div>
             <p class="text-slate-500 text-sm">
-                © 2026 ZYY • Dibangun dengan HTML, Tailwind CSS & JavaScript<br>
-                Repositori Belajar: <a href="https://github.com/zii4you/Akses-digital-by-zyy" target="_blank" class="text-utama hover:underline">Akses Digital by ZYY</a>
+                © 2026 Muzi Adriyan • Dibangun dengan ❤️ HTML, Tailwind CSS & JavaScript<br>
+                Made in Indonesia 🇮🇩 | Semua hak dilindungi
             </p>
         </div>
     </footer>
 
-    <!-- SCRIPT ANIMASI -->
+    <!-- === SKRIP UTAMA === -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // 1. SOROT MOUSE & PARALLAX
-        const sorotMouse = document.getElementById('sorotMouse');
-        const latarUtama = document.getElementById('latarUtama');
-        window.addEventListener('mousemove', (e) => {
-            sorotMouse.style.left = `${e.clientX}px`;
-            sorotMouse.style.top = `${e.clientY}px`;
-            latarUtama.style.transform = `translate(${e.clientX * 0.02}px, ${e.clientY * 0.02}px)`;
+        // INISIALISASI AWAL
+        AOS.init({ duration: 800, once: true, offset: 100 });
+        gsap.registerPlugin(ScrollTrigger);
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // 1. LAYAR LOADING
+        const layarMuat = document.getElementById('layarMuat');
+        const barMuat = document.getElementById('barMuat');
+        let persen = 0;
+        const prosesMuat = setInterval(() => {
+            persen += Math.floor(Math.random() * 12) + 3;
+            if(persen >= 100) { persen = 100; clearInterval(prosesMuat); setTimeout(() => layarMuat.classList.add('selesai'), 600); }
+            barMuat.style.width = `${persen}%`;
+        }, 120);
+
+        // 2. CUSTOM CURSOR
+        const kursorUtama = document.getElementById('kursorUtama');
+        const wadahJejak = document.getElementById('wadahJejak');
+        const jejak = [];
+        for(let i=0; i<12; i++) { const d = document.createElement('div'); d.classList.add('jejak-kursor'); wadahJejak.appendChild(d); jejak.push(d); }
+        let x=0, y=0, cx=0, cy=0;
+        window.addEventListener('mousemove', (e) => { x=e.clientX; y=e.clientY; });
+        gsap.ticker.add(() => {
+            cx += (x - cx) * 0.15; cy += (y - cy) * 0.15;
+            kursorUtama.style.left = `${cx}px`; kursorUtama.style.top = `${cy}px`;
+            jejak.forEach((d,i) => { setTimeout(() => { d.style.left = `${cx - i*1.5}px`; d.style.top = `${cy - i*1.5}px`; d.style.opacity = 0.6 - i*0.05; }, i*30); });
+        });
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => kursorUtama.classList.add('aktif'));
+            el.addEventListener('mouseleave', () => kursorUtama.classList.remove('aktif'));
         });
 
-        // 2. GENERATE PARTIKEL
-        const wadahPartikel = document.getElementById('wadahPartikel');
-        for(let i=0; i<40; i++) {
-            const p = document.createElement('div');
-            p.classList.add('partikel');
-            p.style.left = `${Math.random()*100}%`;
-            p.style.animationDelay = `${Math.random()*20}s`;
-            p.style.animationDuration = `${15 + Math.random()*10}s`;
-            wadahPartikel.appendChild(p);
+        // 3. BACKGROUND BINTANG 3D LEBIH HIDUP
+        const kanvas = document.getElementById('latar3d');
+        const pengatur = new THREE.WebGLRenderer({canvas:kanvas, alpha:true, antialias:true});
+        pengatur.setPixelRatio(Math.min(window.devicePixelRatio,2));
+        const adegan = new THREE.Scene();
+        const kamera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        kamera.position.z = 120;
+
+        // Buat bintang lebih banyak & beragam ukuran
+        const partikel = new THREE.BufferGeometry();
+        const jumlahBintang = 5000; 
+        const posisi = new Float32Array(jumlahBintang*3);
+        const ukuran = new Float32Array(jumlahBintang);
+        const kecepatan = new Float32Array(jumlahBintang);
+
+        for(let i=0; i<jumlahBintang*3; i+=3) {
+            posisi[i] = (Math.random()-0.5)*600;
+            posisi[i+1] = (Math.random()-0.5)*600;
+            posisi[i+2] = (Math.random()-0.5)*600;
+            ukuran[i/3] = Math.random() * 1.2 + 0.2;
+            kecepatan[i/3] = Math.random() * 0.003 + 0.0005;
         }
 
-        // 3. ANIMASI MUNCUL SCROLL
-        const pengamat = new IntersectionObserver((el) => {
-            el.forEach(item => { if(item.isIntersecting) item.target.classList.add('tampil'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.muncul').forEach(el => pengamat.observe(el));
+        partikel.setAttribute('position', new THREE.BufferAttribute(posisi,3));
+        partikel.setAttribute('size', new THREE.BufferAttribute(ukuran,1));
 
-        // 4. ANGKA BERJALAN
-        const hitungAngka = (el) => {
-            const akhir = parseInt(el.dataset.hitung);
-            const durasi = 2000;
-            const langkah = akhir / (durasi / 16);
-            let sekarang = 0;
-            const proses = () => {
-                sekarang += langkah;
-                el.innerText = Math.floor(sekarang).toLocaleString('id-ID');
-                if(sekarang < akhir) requestAnimationFrame(proses);
-            };
-            proses();
-        };
+        const bahan = new THREE.PointsMaterial({
+            color: 0x00FFFF,
+            size: 1,
+            transparent: true,
+            opacity: 0.8,
+            sizeAttenuation: true
+        });
+
+        const titikBintang = new THREE.Points(partikel, bahan);
+        adegan.add(titikBintang);
+
+        // Animasi bintang berjalan & berkedip
+        function animasiBintang() {
+            requestAnimationFrame(animasiBintang);
+            const pos = titikBintang.geometry.attributes.position.array;
+            
+            for(let i=1; i<jumlahBintang; i++) {
+                pos[i*3+2] -= kecepatan[i] * 20;
+                if(pos[i*3+2] < -300) pos[i*3+2] = 300;
+            }
+            
+            titikBintang.geometry.attributes.position.needsUpdate = true;
+            titikBintang.rotation.y += 0.0003;
+            titikBintang.rotation.x += 0.0001;
+            
+            // Efek berkedip acak
+            bahan.opacity = 0.6 + Math.sin(Date.now() * 0.001) * 0.2;
+            
+            pengatur.render(adegan,kamera);
+        }
+        animasiBintang();
+
+        window.addEventListener('resize', () => { 
+            kamera.aspect = window.innerWidth/window.innerHeight; 
+            kamera.updateProjectionMatrix(); 
+            pengatur.setSize(window.innerWidth, window.innerHeight); 
+        });
+
+        // 4. TYPING EFFECT
+        const elemenKetik = document.querySelector('.ketik');
+        const teksKetik = elemenKetik.dataset.teks; let indeks = 0;
+        function tulis() { if(indeks < teksKetik.length) { elemenKetik.textContent += teksKetik.charAt(indeks); indeks++; setTimeout(tulis, 120); } }
+        tulis();
+
+        // 5. ANGKA BERJALAN
         document.querySelectorAll('[data-hitung]').forEach(el => {
-            new IntersectionObserver(e => e.forEach(i => i.isIntersecting && hitungAngka(i.target))).observe(el);
+            const target = parseInt(el.dataset.hitung); let nilai = 0;
+            const perbarui = () => { nilai += Math.ceil(target / 80); if(nilai > target) nilai = target; el.textContent = nilai.toLocaleString('id-ID'); if(nilai < target) requestAnimationFrame(perbarui); };
+            new IntersectionObserver(e => e.forEach(i => i.isIntersecting && perbarui())).observe(el);
         });
 
-        // 5. ANIMASI SKILL BAR
-        document.querySelectorAll('.isi-skill').forEach(el => {
-            new IntersectionObserver(e => {
-                e.forEach(i => { if(i.isIntersecting) el.style.width = `${el.dataset.persen}%`; });
-            }).observe(el);
+        // 6. PROGRESS SKILL
+        document.querySelectorAll('[data-persen]').forEach(el => {
+            new IntersectionObserver(e => e.forEach(i => i.isIntersecting && (el.style.width = `${el.dataset.persen}%`))).observe(el);
         });
+
+        // 7. MENU HP
+        const tombolMenu = document.getElementById('tombolMenu');
+        const menuHp = document.getElementById('menuHp'); let buka = false;
+        tombolMenu.addEventListener('click', () => { buka = !buka; menuHp.style.maxHeight = buka ? '600px' : '0'; tombolMenu.innerHTML = buka ? '<i class="fa fa-times"></i>' : '<i class="fa fa-bars"></i>'; });
+
+        // 8. RIPPLE KLIK
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const gelombang = document.createElement('span'); gelombang.classList.add('gelombang');
+                gelombang.style.left = `${e.offsetX - 25}px`; gelombang.style.top = `${e.offsetY - 25}px`;
+                el.appendChild(gelombang); setTimeout(() => gelombang.remove(), 600);
+            });
+        });
+
+        // 9. ANIMASI 3D TILT KARTU
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), { max: 12, speed: 300, glare: true, "max-glare": 0.15 });
     </script>
 </body>
 </html>
