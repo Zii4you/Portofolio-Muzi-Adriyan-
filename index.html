@@ -405,7 +405,7 @@
                 </div>
                 <div class="flex-1 muncul muncul-zoom delay-200">
                     <div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto layang">
-                        <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-r dari-utama to-sekunder opacity-20 blur-xl"></div>
+                        <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-r from-utama to-sekunder opacity-20 blur-xl"></div>
                         <div class="relative h-full rounded-[1.5rem] overflow-hidden bingkai-gradient">
                             <img src="AEBCA3EB-9450-4172-94D5-6379AD70F0B9.png" alt="Muzi Adriyan" class="w-full h-full object-cover">
                         </div>
@@ -664,29 +664,29 @@
 
     <button id="keAtas" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa fa-arrow-up"></i></button>
 
-    <!-- SCRIPT FUNGSI -->
+    <!-- SCRIPT FUNGSI LENGKAP & DIPERBAIKI -->
     <script>
-        // === ANIMASI LAYAR INTRO PEMUATAN ===
+        // === 1. ANIMASI LAYAR INTRO PEMUATAN ===
         const layarIntro = document.getElementById('layarIntro');
         const barMuat = document.getElementById('barMuat');
         const persenMuat = document.getElementById('persenMuat');
-        let nilai = 0;
+        let nilaiMuat = 0;
 
         const prosesMuat = setInterval(() => {
-            nilai += Math.floor(Math.random() * 4) + 1;
-            if(nilai >= 100) {
-                nilai = 100;
+            nilaiMuat += Math.floor(Math.random() * 5) + 1;
+            if (nilaiMuat >= 100) {
+                nilaiMuat = 100;
                 clearInterval(prosesMuat);
                 setTimeout(() => {
                     layarIntro.style.opacity = '0';
                     setTimeout(() => layarIntro.style.display = 'none', 800);
-                }, 500);
+                }, 600);
             }
-            barMuat.style.width = nilai + '%';
-            persenMuat.textContent = nilai + '%';
-        }, 90);
+            barMuat.style.width = nilaiMuat + '%';
+            persenMuat.textContent = nilaiMuat + '%';
+        }, 80);
 
-        // 1. Scroll Progress & Navbar Efek
+        // === 2. SCROLL PROGRESS & NAVBAR ===
         const progressBar = document.getElementById('scrollProgress');
         const navbar = document.getElementById('navbar');
         const btnAtas = document.getElementById('keAtas');
@@ -697,19 +697,16 @@
             btnAtas.classList.toggle('tampil', window.scrollY > 400);
         });
 
-        // 2. Menu HP
+        // === 3. MENU HP ===
         const tombolMenu = document.getElementById('tombolMenu');
         const menuHp = document.getElementById('menuHp');
         tombolMenu.addEventListener('click', () => menuHp.classList.toggle('hidden'));
         menuHp.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menuHp.classList.add('hidden')));
 
-        // 3. Muncul Saat Dilihat
-        const pengamatMuncul = new IntersectionObserver((e) => {
-            e.forEach(i => { if(i.isIntersecting) i.target.classList.add('aktif'); });
+        // === 4. MUNCUL SAAT DILIHAT ===
+        const pengamatMuncul = new IntersectionObserver((elemen) => {
+            elemen.forEach(item => { if(item.isIntersecting) item.target.classList.add('aktif'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.muncul').forEach(el => pengamatMuncul.observe(el));
 
-        // 4. Angka Berjalan
-        document.querySelectorAll('[data-hitung]').forEach(el => {
-            const tujuan = parseInt(el.dataset.hitung);
-            let sekarang = 
+        // === 5. ANIM
