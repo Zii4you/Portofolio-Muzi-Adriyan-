@@ -251,26 +251,6 @@
         }
         .faq-item.terbuka .faq-jawaban { max-height: 200px; }
         .faq-item.terbuka .tanda-panah { transform: rotate(180deg); }
-
-        /* === KARTU NAMA DIGITAL === */
-        .kartu-json {
-            font-family: 'Courier New', monospace;
-            background: rgba(2,6,23,0.9);
-            border: 1px solid rgba(37,99,235,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .kartu-json::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(37,99,235,0.1), transparent);
-            animation: sorot 3s linear infinite;
-        }
-        @keyframes sorot { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        .kunci { color: #60a5fa; }
-        .nilai { color: #f97316; }
-        .tanda { color: #94a3b8; }
     </style>
 </head>
 <body class="text-slate-300">
@@ -292,7 +272,6 @@
                 <a href="#keahlian" class="hover:text-utama transition-colors">Keahlian</a>
                 <a href="#proyek" class="hover:text-utama transition-colors">Proyek</a>
                 <a href="#sertifikat" class="hover:text-utama transition-colors">Sertifikat</a>
-                <a href="#kartu" class="hover:text-utama transition-colors">Kartu Nama</a>
                 <a href="#kontak" class="hover:text-utama transition-colors">Kontak</a>
             </div>
             <button class="md:hidden text-xl" id="tombolMenu"><i class="fa fa-bars"></i></button>
@@ -304,7 +283,6 @@
                 <a href="#keahlian" class="py-2 hover:text-utama">Keahlian</a>
                 <a href="#proyek" class="py-2 hover:text-utama">Proyek</a>
                 <a href="#sertifikat" class="py-2 hover:text-utama">Sertifikat</a>
-                <a href="#kartu" class="py-2 hover:text-utama">Kartu Nama</a>
                 <a href="#kontak" class="py-2 hover:text-utama">Kontak</a>
             </div>
         </div>
@@ -461,7 +439,7 @@
                 </div>
                 <div class="kartu-hidup glass rounded-2xl overflow-hidden muncul muncul-zoom" style="animation-delay:0.3s">
                   <div class="h-44 overflow-hidden border-b border-slate-700">
-                      <img src="011FA058-8471-40C-9149-B587B35770FE.png" alt="Sistem Keamanan Dasar" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                      <img src="011FA058-8471-47BC-9149-B587B35770FE.png" alt="Sistem Keamanan Dasar" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
                   </div>
                   <div class="p-5">
                       <h3 class="text-lg font-semibold text-terang mb-2">Sistem Keamanan Dasar</h3>
@@ -483,31 +461,6 @@
 
     <div class="pemisah"></div>
 
-    <!-- KARTU NAMA DIGITAL JSON -->
-    <section id="kartu" class="bg-gelap/50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-terang text-center mb-10 muncul muncul-dari-bawah">Kartu Nama <span class="teks-dinamis">Digital</span></h2>
-            <div class="max-w-2xl mx-auto kartu-json rounded-xl p-6 md:p-8 muncul muncul-zoom">
-                <pre class="text-sm md:text-base leading-relaxed">
-<span class="tanda">{</span>
-  <span class="kunci">"name"</span><span class="tanda">:</span> <span class="nilai">"Muzi Adriyan"</span><span class="tanda">,</span>
-  <span class="kunci">"title"</span><span class="tanda">:</span> <span class="nilai">"Web Developer & AI Enthusiast"</span><span class="tanda">,</span>
-  <span class="kunci">"website"</span><span class="tanda">:</span> <span class="nilai">"https://muzi4you.github.io"</span><span class="tanda">,</span>
-  <span class="kunci">"tagline"</span><span class="tanda">:</span> <span class="nilai">"Code Today, Build Tomorrow"</span>
-<span class="tanda">}</span>
-                </pre>
-                <div class="mt-6 pt-4 border-t border-slate-700 flex justify-between items-center text-xs text-slate-400">
-                    <div class="flex items-center gap-2"><i class="fa fa-shield text-utama"></i> SECURE by mindset</div>
-                    <div class="flex items-center gap-2"><i class="fa fa-bug text-utama"></i> HACK by curiosity</div>
-                    <div class="flex items-center gap-2"><i class="fa fa-terminal text-utama"></i> DEFEND with purpose</div>
-                </div>
-                <div class="mt-3 text-center text-sm text-utama">🌐 muzi4you.github.io</div>
-            </div>
-        </div>
-    </section>
-
-    <div class="pemisah"></div>
-
     <!-- SERTIFIKAT & PENCAPAIAN -->
     <section id="sertifikat" class="bg-gelap-2/30">
         <div class="container mx-auto px-4">
@@ -519,6 +472,13 @@
                 <div class="glass rounded-xl p-5 text-center muncul muncul-dari-bawah" style="animation-delay:0.3s"><h3 class="text-2xl font-bold text-terang mb-1" data-hitung="600">0+</h3><p class="text-xs text-slate-400">Jam Belajar</p></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="glass rounded-xl p-5 text-center kartu-hidup muncul muncul-zoom">
+                    <i class="fa fa-certificate text-3xl text-utama mb-3"></i>
+                    <h4 class="font-medium text-terang mb-2">Sertifikat Dasar Web Dev</h4>
+                    <p class="text-xs text-slate-400 mb-3">Pelatihan resmi bersertifikat</p>
+                    <a href="#" class="text-sm text-utama hover:underline">Lihat Detail</a>
+                </div>
+                <!-- Sertifikat Dasar Web Dev -->
                 <div class="glass rounded-xl overflow-hidden kartu-hidup muncul muncul-zoom">
                     <div class="h-40 overflow-hidden border-b border-slate-700">
                         <img src="8883D4F8-57E4-45BC-8CFF-0F6237BFA0BA.png" alt="Sertifikat Web Development Bootcamp" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
@@ -527,9 +487,10 @@
                         <h4 class="font-medium text-terang mb-2">Web Development Bootcamp</h4>
                         <p class="text-xs text-slate-400 mb-1">CodeCraft Digital Solutions</p>
                         <p class="text-xs text-green-400 mb-3">Lulus dengan Nilai Sangat Baik</p>
-                        <a href="8883D4F8-57E4-45BC-8CFF-0F6237BFA0BA.png" target="_blank" class="text-sm text-utama hover:underline">Lihat Sertifikat</a>
+                        <a href="8883D4F8-57E4-45BC-8CFF-0F6237BFA0BA.png" target="_blank" class="text-sm text-utama hover:underline"></a>
                     </div>
                 </div>
+                <!-- Sertifikat Keamanan Dasar -->
                 <div class="glass rounded-xl overflow-hidden kartu-hidup muncul muncul-zoom" style="animation-delay:0.2s">
                     <div class="h-40 overflow-hidden border-b border-slate-700">
                         <img src="684E7965-ABD7-44BD-B9A1-6015F9D02010.png" alt="Sertifikat Keamanan Dasar" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
@@ -538,10 +499,9 @@
                         <h4 class="font-medium text-terang mb-2">Keamanan Siber Dasar</h4>
                         <p class="text-xs text-slate-400 mb-1">Pelatihan Keamanan Digital</p>
                         <p class="text-xs text-green-400 mb-3">Lulus dengan Nilai Sangat Baik</p>
-                        <a href="684E7965-ABD7-44BD-B9A1-6015F9D02010.png" target="_blank" class="text-sm text-aksen hover:underline">Lihat Sertifikat</a>
+                        <a href="684E7965-ABD7-44BD-B9A1-6015F9D02010.png" target="_blank" class="text-sm text-aksen hover:underline"></a>
                     </div>
                 </div>
-            </div>
         </div>
     </section>
 
@@ -585,11 +545,11 @@
             <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-terang text-center mb-10 muncul muncul-dari-bawah">Hubungi <span class="teks-dinamis">Saya</span></h2>
             <div class="max-w-xl mx-auto glass rounded-2xl p-6 md:p-8 mb-12 muncul muncul-dari-bawah delay-100">
                 <div class="space-y-4">
-                    <a href="https://wa.me/6285792175049" target="_blank" class="flex items-center gap-3 p-3 rounded-xl hover:bg-utama/10 transition-colors">
-                        <i class="fa fa-whatsapp text-xl text-green-400 w-6"></i><span>0857-9217-5049</span>
+                    <a href="https://wa.me/6285692174059" target="_blank" class="flex items-center gap-3 p-3 rounded-xl hover:bg-utama/10 transition-colors">
+                        <i class="fa fa-whatsapp text-xl text-green-400 w-6"></i><span>0856-9217-4059</span>
                     </a>
-                    <a href="mailto:muziadriyyan@gmail.com" class="flex items-center gap-3 p-3 rounded-xl hover:bg-utama/10 transition-colors">
-                        <i class="fa fa-envelope text-xl text-utama w-6"></i><span>muziadriyyan@gmail.com</span>
+                    <a href="mailto:muziadriyan@email.com" class="flex items-center gap-3 p-3 rounded-xl hover:bg-utama/10 transition-colors">
+                        <i class="fa fa-envelope text-xl text-utama w-6"></i><span>muziadriyan@email.com</span>
                     </a>
                     <a href="https://github.com/zii4you" target="_blank" class="flex items-center gap-3 p-3 rounded-xl hover:bg-utama/10 transition-colors">
                         <i class="fa fa-github text-xl text-terang w-6"></i><span>github.com/zii4you</span>
@@ -613,7 +573,7 @@
 
     <button id="keAtas" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fa fa-arrow-up"></i></button>
 
-    <!-- SCRIPT FUNGSI LENGKAP -->
+    <!-- SCRIPT FUNGSI -->
     <script>
         // 1. Scroll Progress & Navbar Efek
         const progressBar = document.getElementById('scrollProgress');
@@ -638,24 +598,17 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.muncul').forEach(el => pengamatMuncul.observe(el));
 
-        // 4. Angka Berjalan (Sudah Diperbaiki Tidak Macet)
+        // 4. Angka Berjalan
         document.querySelectorAll('[data-hitung]').forEach(el => {
             const tujuan = parseInt(el.dataset.hitung);
             let sekarang = 0;
-            const durasi = 2000; // 2 detik selesai
-            const langkahWaktu = durasi / tujuan;
+            const langkah = tujuan / 60;
             const hitung = () => {
-                sekarang++;
-                if(sekarang <= tujuan) {
-                    el.innerText = sekarang + '+';
-                    setTimeout(hitung, langkahWaktu);
-                } else {
-                    el.innerText = tujuan + '+';
-                }
+                sekarang += langkah;
+                if(sekarang < tujuan) { el.innerText = Math.floor(sekarang) + '+'; requestAnimationFrame(hitung); }
+                else { el.innerText = tujuan + '+'; }
             };
-            new IntersectionObserver((e) => {
-                if(e[0].isIntersecting && sekarang === 0) hitung();
-            }, {threshold:0.5}).observe(el);
+            new IntersectionObserver((e) => { if(e[0].isIntersecting) hitung(); }, {threshold:0.5}).observe(el);
         });
 
         // 5. Animasi Mengetik
@@ -673,4 +626,15 @@
 
         // 6. Partikel Otomatis
         const wadah = document.getElementById('wadahPartikel');
-        for(let i=0
+        for(let i=0; i<15; i++) {
+            const p = document.createElement('div');
+            p.classList.add('partikel');
+            p.style.left = `${Math.random()*100}%`;
+            p.style.width = p.style.height = `${2+Math.random()*4}px`;
+            p.style.animation = `partikelNaik ${15+Math.random()*20}s linear infinite`;
+            p.style.animationDelay = `${Math.random()*25}s`;
+            wadah.appendChild(p);
+        }
+    </script>
+</body>
+</html>
