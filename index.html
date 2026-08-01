@@ -51,6 +51,83 @@
             transform: scaleX(0);
         }
 
+        /* === LAYAR INTRO PEMUATAN === */
+        #layarIntro {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #020617;
+            transition: opacity 0.8s ease;
+        }
+        .lingkaran-putar {
+            position: relative;
+            width: 128px;
+            height: 128px;
+            margin-bottom: 2rem;
+        }
+        .lingkaran-bawah {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(37,99,235,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ikon-cpu {
+            width: 48px;
+            height: 48px;
+            color: #2563eb;
+        }
+        .lingkaran-atas {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: #2563eb;
+            animation: putar 1.5s linear infinite;
+        }
+        @keyframes putar { to { transform: rotate(360deg); } }
+        .teks-intro {
+            font-size: clamp(1.8rem,5vw,2.5rem);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            background: linear-gradient(90deg, #2563eb, #7c3aed, #f59e0b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: kedip 2s ease-in-out infinite;
+            margin-bottom: 0.5rem;
+        }
+        @keyframes kedip { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        .teks-selamat {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+        .wadah-bar {
+            width: 256px;
+            height: 8px;
+            background-color: #1e293b;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .bar-muat {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            transition: width 0.1s ease;
+        }
+        .persen-muat {
+            font-size: 0.75rem;
+            color: #2563eb;
+            margin-top: 0.5rem;
+        }
+
         /* === LATAR BELAKANG === */
         .latar-aurora {
             position: fixed;
@@ -255,6 +332,25 @@
 </head>
 <body class="text-slate-300">
 
+    <!-- LAYAR INTRO PEMUATAN SISTEM -->
+    <div id="layarIntro">
+        <div class="lingkaran-putar">
+            <div class="lingkaran-bawah">
+                <svg class="ikon-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                    <rect x="9" y="9" width="6" height="6"></rect>
+                </svg>
+            </div>
+            <div class="lingkaran-atas"></div>
+        </div>
+        <h1 class="teks-intro">INITIALIZING SYSTEM...</h1>
+        <p class="teks-selamat">Welcome to the Future of Digital Innovation</p>
+        <div class="wadah-bar">
+            <div id="barMuat" class="bar-muat"></div>
+        </div>
+        <p id="persenMuat" class="persen-muat">0%</p>
+    </div>
+
     <div id="scrollProgress"></div>
     <div class="latar-aurora"><div class="aurora-1"></div><div class="aurora-2"></div></div>
     <div class="grid-latar"></div>
@@ -309,7 +405,7 @@
                 </div>
                 <div class="flex-1 muncul muncul-zoom delay-200">
                     <div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto layang">
-                        <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-r from-utama to-sekunder opacity-20 blur-xl"></div>
+                        <div class="absolute -inset-3 rounded-[2rem] bg-gradient-to-r dari-utama to-sekunder opacity-20 blur-xl"></div>
                         <div class="relative h-full rounded-[1.5rem] overflow-hidden bingkai-gradient">
                             <img src="AEBCA3EB-9450-4172-94D5-6379AD70F0B9.png" alt="Muzi Adriyan" class="w-full h-full object-cover">
                         </div>
@@ -472,12 +568,6 @@
                 <div class="glass rounded-xl p-5 text-center muncul muncul-dari-bawah" style="animation-delay:0.3s"><h3 class="text-2xl font-bold text-terang mb-1" data-hitung="600">0+</h3><p class="text-xs text-slate-400">Jam Belajar</p></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div class="glass rounded-xl p-5 text-center kartu-hidup muncul muncul-zoom">
-                    <i class="fa fa-certificate text-3xl text-utama mb-3"></i>
-                    <h4 class="font-medium text-terang mb-2">Sertifikat Dasar Web Dev</h4>
-                    <p class="text-xs text-slate-400 mb-3">Pelatihan resmi bersertifikat</p>
-                    <a href="#" class="text-sm text-utama hover:underline">Lihat Detail</a>
-                </div>
                 <!-- Sertifikat Dasar Web Dev -->
                 <div class="glass rounded-xl overflow-hidden kartu-hidup muncul muncul-zoom">
                     <div class="h-40 overflow-hidden border-b border-slate-700">
@@ -487,7 +577,7 @@
                         <h4 class="font-medium text-terang mb-2">Web Development Bootcamp</h4>
                         <p class="text-xs text-slate-400 mb-1">CodeCraft Digital Solutions</p>
                         <p class="text-xs text-green-400 mb-3">Lulus dengan Nilai Sangat Baik</p>
-                        <a href="8883D4F8-57E4-45BC-8CFF-0F6237BFA0BA.png" target="_blank" class="text-sm text-utama hover:underline"></a>
+                        <a href="8883D4F8-57E4-45BC-8CFF-0F6237BFA0BA.png" target="_blank" class="text-sm text-utama hover:underline">Lihat Sertifikat Penuh</a>
                     </div>
                 </div>
                 <!-- Sertifikat Keamanan Dasar -->
@@ -499,9 +589,10 @@
                         <h4 class="font-medium text-terang mb-2">Keamanan Siber Dasar</h4>
                         <p class="text-xs text-slate-400 mb-1">Pelatihan Keamanan Digital</p>
                         <p class="text-xs text-green-400 mb-3">Lulus dengan Nilai Sangat Baik</p>
-                        <a href="684E7965-ABD7-44BD-B9A1-6015F9D02010.png" target="_blank" class="text-sm text-aksen hover:underline"></a>
+                        <a href="684E7965-ABD7-44BD-B9A1-6015F9D02010.png" target="_blank" class="text-sm text-aksen hover:underline">Lihat Sertifikat Penuh</a>
                     </div>
                 </div>
+            </div>
         </div>
     </section>
 
@@ -575,6 +666,26 @@
 
     <!-- SCRIPT FUNGSI -->
     <script>
+        // === ANIMASI LAYAR INTRO PEMUATAN ===
+        const layarIntro = document.getElementById('layarIntro');
+        const barMuat = document.getElementById('barMuat');
+        const persenMuat = document.getElementById('persenMuat');
+        let nilai = 0;
+
+        const prosesMuat = setInterval(() => {
+            nilai += Math.floor(Math.random() * 4) + 1;
+            if(nilai >= 100) {
+                nilai = 100;
+                clearInterval(prosesMuat);
+                setTimeout(() => {
+                    layarIntro.style.opacity = '0';
+                    setTimeout(() => layarIntro.style.display = 'none', 800);
+                }, 500);
+            }
+            barMuat.style.width = nilai + '%';
+            persenMuat.textContent = nilai + '%';
+        }, 90);
+
         // 1. Scroll Progress & Navbar Efek
         const progressBar = document.getElementById('scrollProgress');
         const navbar = document.getElementById('navbar');
@@ -601,40 +712,4 @@
         // 4. Angka Berjalan
         document.querySelectorAll('[data-hitung]').forEach(el => {
             const tujuan = parseInt(el.dataset.hitung);
-            let sekarang = 0;
-            const langkah = tujuan / 60;
-            const hitung = () => {
-                sekarang += langkah;
-                if(sekarang < tujuan) { el.innerText = Math.floor(sekarang) + '+'; requestAnimationFrame(hitung); }
-                else { el.innerText = tujuan + '+'; }
-            };
-            new IntersectionObserver((e) => { if(e[0].isIntersecting) hitung(); }, {threshold:0.5}).observe(el);
-        });
-
-        // 5. Animasi Mengetik
-        const daftarTeks = ['Web Developer', 'UI/UX Designer', 'Cyber Security Researcher'];
-        const elemenKetik = document.getElementById('ketikTeks');
-        let iTeks = 0, iHuruf = 0, maju = true;
-        function ketik() {
-            const teks = daftarTeks[iTeks];
-            elemenKetik.textContent = maju ? teks.slice(0,++iHuruf) : teks.slice(0,--iHuruf);
-            if(!maju && iHuruf === 0) { iTeks = (iTeks+1) % daftarTeks.length; maju = true; }
-            if(maju && iHuruf === teks.length) maju = false;
-            setTimeout(ketik, maju ? 120 : 60);
-        }
-        ketik();
-
-        // 6. Partikel Otomatis
-        const wadah = document.getElementById('wadahPartikel');
-        for(let i=0; i<15; i++) {
-            const p = document.createElement('div');
-            p.classList.add('partikel');
-            p.style.left = `${Math.random()*100}%`;
-            p.style.width = p.style.height = `${2+Math.random()*4}px`;
-            p.style.animation = `partikelNaik ${15+Math.random()*20}s linear infinite`;
-            p.style.animationDelay = `${Math.random()*25}s`;
-            wadah.appendChild(p);
-        }
-    </script>
-</body>
-</html>
+            let sekarang = 
